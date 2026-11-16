@@ -126,14 +126,35 @@ table.elim td.y{background:#d3f9d8;color:#2b8a3e}table.elim td.n{background:#ffe
 table.elim td.nm{width:auto;padding:0 10px;text-align:left;background:#f1f3f5;color:#1d2433}
 .fbm{display:flex;align-items:center;gap:8px}
 .hintbtn{background:#fff8e1;border-color:#f0c36d;color:#8a5a00}
-.hint{background:#fff8e1;border-radius:8px;padding:8px 12px;margin-top:8px;font-size:15px}
+.hint{background:#fff8e1;border-radius:8px;padding:8px 12px;margin-top:8px;font-size:15px;white-space:pre-wrap}
 .example{border-left-width:6px}
 .confetti{position:fixed;top:-10px;width:10px;height:14px;z-index:50;border-radius:2px;animation:fall 1.6s ease-in forwards;pointer-events:none}
 @keyframes fall{to{transform:translateY(105vh) rotate(540deg);opacity:.8}}
 @media (prefers-reduced-motion:reduce){.confetti{display:none}.wcard{transition:none}}
+canvas.tcv{width:100%;max-width:340px;aspect-ratio:1/1;display:block;margin:0 auto;border:1px solid var(--line);border-radius:12px;background:#fff}canvas.tcv[hidden]{display:none}
 pre.out{background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:8px 12px;font:14px/1.45 ui-monospace,Consolas,monospace;white-space:pre-wrap;margin:6px 0;max-width:75ch}
 textarea.code{font:15px/1.5 ui-monospace,Consolas,monospace;background:#fbfcfe;tab-size:4;min-height:150px}
 .q pre.out{margin-top:8px}
+
+/* --- учебник Python --- */
+.pylink{font-weight:600;text-decoration:none;color:var(--acc);background:var(--acc2);border-radius:999px;padding:4px 12px;font-size:14px}
+a.btn{text-decoration:none;display:inline-block}a.btn.sec{background:#fff;color:var(--acc)}
+.pyban{display:flex;gap:12px;align-items:center;text-decoration:none;color:#1d2433;background:linear-gradient(120deg,#e6fcf5,#e7f5ff);border:1px solid #b2f2bb;border-radius:16px;padding:12px 16px;margin:6px 0 14px}
+.pyban:hover{box-shadow:0 4px 14px rgba(30,40,80,.1)}.pyico{font-size:30px}
+.pyhero{display:flex;gap:16px;align-items:center;border-radius:20px;padding:22px 24px;margin:6px 0 10px;color:#fff;background:linear-gradient(125deg,#2b8a3e,#1098ad 60%,#3b5bdb)}
+.pyhero h1{margin:0 0 4px}.pyhero p{margin:0;max-width:70ch;opacity:.95}.pyhico{font-size:48px;flex:none}
+.pycard{display:flex;flex-direction:column;text-decoration:none;color:#1d2433;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:transform .12s,box-shadow .12s}
+.pycard:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(30,40,80,.12)}
+.pctop{height:62px;background:linear-gradient(120deg,var(--pc),color-mix(in srgb,var(--pc) 70%,#fff));display:flex;align-items:center;justify-content:space-between;padding:0 16px;color:#fff}
+.pcico{font-size:30px}.pcn{font-size:26px;font-weight:800;opacity:.9}.pcbody{padding:10px 16px 14px}
+.pychip{display:inline-block;font-size:12px;font-weight:600;border-radius:999px;padding:1px 9px;background:#e7f5ff;color:#1864ab;text-decoration:none}.pychip.off{background:#f1f3f5;color:#5d6678}
+.pymore{margin:10px 0 0;padding:8px 12px;background:#e6fcf5;border-radius:10px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:14px}
+.pymore a{text-decoration:none;background:#fff;border:1px solid #96f2d7;border-radius:999px;padding:2px 10px;color:#087f5b;font-weight:600}
+.secn{display:inline-flex;width:30px;height:30px;border-radius:50%;color:#fff;align-items:center;justify-content:center;font-size:16px;margin-right:4px}
+.runbox{margin-top:10px}
+.remember{background:#fff9db;border-color:#ffe066}.remember li{margin:4px 0}
+@media (max-width:640px){.pyhero{flex-direction:column;align-items:flex-start;padding:16px}.pylink{order:2}}
+@media print{.pylink{display:none}}
 /* --- титульная страница --- */
 .hero2{position:relative;overflow:hidden;border-radius:20px;color:#fff;background:linear-gradient(125deg,#3b3fb6 0%,#5b5bd6 38%,#0c8599 100%);margin:6px 0 14px}
 .hero2 .mount{position:absolute;left:0;right:0;bottom:22px;width:100%;height:60%}
@@ -170,6 +191,7 @@ textarea.code{font:15px/1.5 ui-monospace,Consolas,monospace;background:#fbfcfe;t
 <body>
 <header class="noprint">
   <span class="brand" id="brand"></span>
+  <a class="pylink" id="pylink" href="#py">📘 Python</a>
   <span class="sp"></span>
   <span class="who" id="who"></span>
   <span class="seg" id="langseg"><button data-l="ky">KG</button><button data-l="ru">RU</button></span>
@@ -186,7 +208,7 @@ ru:{brand:"Информатика · практикум",grade:"класс",stud
 classCode:"Код класса",fio:"Фамилия и имя",pass:"Пароль (не менее 4 символов)",enter:"Войти",join:"Зарегистрироваться",logout:"Выйти",
 demoNote:"Демонстрационный режим: данные хранятся только в этом браузере. После подключения базы данных ученики и учитель будут работать с любых устройств.",
 myWorks:"Практические работы",soon:"скоро",notStarted:"не начата",inProgress:"в работе",submitted:"сдана",graded:"оценена",
-goal:"Цель",theory:"Теория",example:"Разбор примера",tasks:"Задания",lv1:"Базовый уровень",lv2:"Средний уровень",lv3:"Повышенный уровень",
+tHelp:"черепаха рисует справа",tDrawn:"Рисунок готов ✓",tNothing:"Черепаха ничего не нарисовала. Проверьте, что вызываете forward().",goal:"Цель",theory:"Теория",example:"Разбор примера",tasks:"Задания",lv1:"Базовый уровень",lv2:"Средний уровень",lv3:"Повышенный уровень",
 check:"Проверить",right:"Верно!",wrong:"Есть ошибки. Попробуйте ещё раз.",partial:"Верно",of:"из",attempts:"Попыток",pts:"балл.",
 teacherCheck:"Проверяет учитель",saved:"Сохранено",report:"Отчёт",rDone:"Что я сделал(а) и как проверял(а) решения",rConcl:"Вывод: чему я научился(ась)",
 rHard:"Что было трудно",self:"Самооценка",self1:"Всё понял(а), могу объяснить другому",self2:"Понял(а), но остались вопросы",self3:"Нужна помощь учителя",
@@ -207,7 +229,7 @@ ky:{brand:"Информатика · практикум",grade:"класс",stud
 classCode:"Класстын коду",fio:"Фамилиясы жана аты",pass:"Сырсөз (кеминде 4 белги)",enter:"Кирүү",join:"Катталуу",logout:"Чыгуу",
 demoNote:"Демонстрациялык режим: маалыматтар ушул браузерде гана сакталат. Маалымат базасы туташтырылгандан кийин окуучулар жана мугалим каалаган түзмөктөн иштей алышат.",
 myWorks:"Практикалык иштер",soon:"жакында",notStarted:"башталган жок",inProgress:"аткарылууда",submitted:"тапшырылды",graded:"бааланды",
-goal:"Максат",theory:"Теория",example:"Мисалды талдоо",tasks:"Тапшырмалар",lv1:"Базалык деңгээл",lv2:"Орто деңгээл",lv3:"Жогорку деңгээл",
+tHelp:"ташбака оң жакта тартат",tDrawn:"Сүрөт даяр ✓",tNothing:"Ташбака эч нерсе тарткан жок. forward() чакырылганын текшериңиз.",goal:"Максат",theory:"Теория",example:"Мисалды талдоо",tasks:"Тапшырмалар",lv1:"Базалык деңгээл",lv2:"Орто деңгээл",lv3:"Жогорку деңгээл",
 check:"Текшерүү",right:"Туура!",wrong:"Каталар бар. Дагы аракет кылыңыз.",partial:"Туура",of:"ичинен",attempts:"Аракет",pts:"упай",
 teacherCheck:"Мугалим текшерет",saved:"Сакталды",report:"Отчёт",rDone:"Мен эмне кылдым жана чечимдерди кантип текшердим",rConcl:"Корутунду: эмнени үйрөндүм",
 rHard:"Эмнеси кыйын болду",self:"Өзүмдү баалоо",self1:"Баарын түшүндүм, башкага түшүндүрө алам",self2:"Түшүндүм, бирок суроолор калды",self3:"Мугалимдин жардамы керек",
@@ -1046,21 +1068,23 @@ print(sum(marks) / len(marks))   # 4.25</pre>`),
    {id:"g",type:"str",pts:1,ans:["КЕЛ"],q:R("Что выведет программа?\nw = \"көл\"\nprint(w.upper().replace(\"Ө\", \"Е\"))","Программа эмне чыгарат?\nw = \"көл\"\nprint(w.upper().replace(\"Ө\", \"Е\"))")},
    {id:"h",type:"text",q:R("Где в жизни вам пригодились бы списки? Приведите пример данных и что с ними можно посчитать.","Турмушта тизмелер сизге кайда пайдалуу болмок? Маалыматтардын мисалын жана алар менен эмнени эсептөөгө болорун келтириңиз.")}]
  ]},
-{id:"8-10",n:10,code:"8.C1",title:R("Python: графика из символов и узоры","Python: символдордон графика жана оюулар"),illus:l=>`<pre class="out" style="font-size:16px;line-height:1.2">*
+{id:"8-10",n:10,code:"8.C1",title:R("Python: графика — символы и черепаха","Python: графика — символдор жана ташбака"),illus:l=>`<pre class="out" style="font-size:16px;line-height:1.2">*
 **
 ***
 ****      ####
 *****     ####
           ####</pre>`,
- goal:R("Научиться строить изображения и узоры с помощью циклов и вложенных циклов.","Циклдердин жана уяча циклдердин жардамы менен сүрөттөрдү жана оюуларды түзүүнү үйрөнүү."),
+ goal:R("Научиться строить изображения и узоры с помощью циклов и вложенных циклов: символами и черепахой (turtle).","Циклдердин жана уяча циклдердин жардамы менен сүрөттөрдү жана оюуларды түзүүнү үйрөнүү: символдор жана ташбака (turtle) менен."),
  theory:R(`<p>Экран — это сетка из строк и столбцов. Рисуя символами, мы тренируем ту же логику, что и в компьютерной графике: каждая строка — это повтор символов.</p>
 <p>Умножение строки на число повторяет её: <code>"*" * 4</code> → <code>****</code>.</p>
 <p>Треугольник: <code>for i in range(1, n + 1): print("*" * i)</code>. Прямоугольник: <code>for i in range(h): print("#" * w)</code>.</p>
-<p><b>Вложенный цикл</b> — цикл внутри цикла: внешний перебирает строки, внутренний — символы в строке. В IDLE можно рисовать и настоящую графику модулем <code>turtle</code> («черепашка»).</p>`,
+<p><b>Вложенный цикл</b> — цикл внутри цикла: внешний перебирает строки, внутренний — символы в строке.</p>
+<p><b>Черепаха</b> (модуль <code>turtle</code>) рисует линии, двигаясь по экрану: <code>t.forward(100)</code> — вперёд на 100 шагов, <code>t.left(90)</code> / <code>t.right(90)</code> — поворот, <code>t.color("red")</code> — цвет, <code>t.begin_fill()</code> … <code>t.end_fill()</code> — заливка, <code>t.circle(50)</code> — круг. Чтобы нарисовать правильный n-угольник, повторяем n раз «вперёд + поворот на 360/n». В тренажёре черепаха рисует прямо на странице.</p>`,
 `<p>Экран — саптардан жана мамычалардан турган тор. Символдор менен тартып, биз компьютердик графикадагыдай эле логиканы машыгабыз: ар бир сап — символдордун кайталанышы.</p>
 <p>Сапты санга көбөйтүү аны кайталайт: <code>"*" * 4</code> → <code>****</code>.</p>
 <p>Үч бурчтук: <code>for i in range(1, n + 1): print("*" * i)</code>. Тик бурчтук: <code>for i in range(h): print("#" * w)</code>.</p>
-<p><b>Уяча цикл</b> — циклдин ичиндеги цикл: сырткысы саптарды, ичкиси саптагы символдорду иргейт. IDLEде <code>turtle</code> («ташбака») модулу менен чыныгы графиканы да тартууга болот.</p>`),
+<p><b>Уяча цикл</b> — циклдин ичиндеги цикл: сырткысы саптарды, ичкиси саптагы символдорду иргейт.</p>
+<p><b>Ташбака</b> (<code>turtle</code> модулу) экранда жылып, сызык тартат: <code>t.forward(100)</code> — 100 кадам алга, <code>t.left(90)</code> / <code>t.right(90)</code> — бурулуу, <code>t.color("red")</code> — түс, <code>t.begin_fill()</code> … <code>t.end_fill()</code> — боёо, <code>t.circle(50)</code> — тегерек. Туура n-бурчтукту тартуу үчүн n жолу «алга + 360/n градуска бурулуу» кайталайбыз. Машыктыргычта ташбака түз эле бетте тартат.</p>`),
  example:R(`Лесенка из цифр:<pre class="out">for i in range(1, 4):
     print(str(i) * i)
 # 1
@@ -1073,11 +1097,17 @@ print(sum(marks) / len(marks))   # 4.25</pre>`),
  levels:[
   [{id:"a",type:"str",pts:1,ans:["****"],q:R("Что выведет программа?\nprint(\"*\" * 4)","Программа эмне чыгарат?\nprint(\"*\" * 4)")},
    {id:"b",type:"num",pts:1,ans:55,tol:0,q:R("Сколько звёздочек в треугольнике высотой 10 (1 + 2 + … + 10)?","Бийиктиги 10 болгон үч бурчтукта канча жылдызча бар (1 + 2 + … + 10)?")},
-   {id:"c",type:"code",pts:2,start:"n = int(input())\n",tests:[{in:"3",out:"*\n**\n***"},{in:"1",out:"*"},{in:"5",out:"*\n**\n***\n****\n*****"}],q:R("Нарисуйте треугольник из звёздочек высотой n.","Жылдызчалардан бийиктиги n болгон үч бурчтук тартыңыз.")}],
-  [{id:"d",type:"code",pts:3,start:"w = int(input())\nh = int(input())\n",tests:[{in:"3\n2",out:"###\n###"},{in:"1\n1",out:"#"},{in:"5\n3",out:"#####\n#####\n#####"}],q:R("Нарисуйте прямоугольник из символов # шириной w и высотой h.","# символдорунан туурасы w жана бийиктиги h болгон тик бурчтук тартыңыз.")}],
+   {id:"c",type:"code",pts:2,start:"n = int(input())\n",tests:[{in:"3",out:"*\n**\n***"},{in:"1",out:"*"},{in:"5",out:"*\n**\n***\n****\n*****"}],q:R("Нарисуйте треугольник из звёздочек высотой n.","Жылдызчалардан бийиктиги n болгон үч бурчтук тартыңыз.")},
+   {id:"t1",type:"turtle",pts:2,start:"import turtle\nt = turtle.Turtle()\n",q:R("Нарисуйте черепахой квадрат со стороной 100. Используйте цикл for.","Ташбака менен жагы 100 болгон квадрат тартыңыз. for циклин колдонуңуз."),hint:R("for i in range(4):\n    t.forward(100)\n    t.left(90)","for i in range(4):\n    t.forward(100)\n    t.left(90)"),
+    checks:[{p:1,d:R("4 стороны по 100","100дөн 4 жак"),f:(S)=>TK.sides(S,4,100)&&TK.closed(S)},{p:1,d:R("используется цикл","цикл колдонулган"),f:(S,o,c)=>TK.loops(c,1)}]}],
+  [{id:"d",type:"code",pts:3,start:"w = int(input())\nh = int(input())\n",tests:[{in:"3\n2",out:"###\n###"},{in:"1\n1",out:"#"},{in:"5\n3",out:"#####\n#####\n#####"}],q:R("Нарисуйте прямоугольник из символов # шириной w и высотой h.","# символдорунан туурасы w жана бийиктиги h болгон тик бурчтук тартыңыз.")},
+   {id:"t2",type:"turtle",pts:3,start:"import turtle\nt = turtle.Turtle()\n",q:R("Нарисуйте правильный шестиугольник со стороной 70 и закрасьте его любым цветом.","Жагы 70 болгон туура алты бурчтук тартып, аны каалаган түскө боёңуз."),hint:R("Угол поворота 360 / 6 = 60. Перед циклом: t.color(\"orange\") и t.begin_fill(), после цикла: t.end_fill().","Бурулуу бурчу 360 / 6 = 60. Циклдин алдында: t.color(\"orange\") жана t.begin_fill(), циклден кийин: t.end_fill()."),
+    checks:[{p:1,d:R("6 сторон по 70","70тен 6 жак"),f:(S)=>TK.sides(S,6,70)},{p:1,d:R("фигура замкнута","фигура туюк"),f:(S)=>TK.closed(S)},{p:1,d:R("есть заливка","боёлгон"),f:(S,o)=>TK.fills(o)>=1}]}],
   [{id:"e",type:"code",pts:2,start:"n = int(input())\n",tests:[{in:"3",out:"***\n**\n*"},{in:"4",out:"****\n***\n**\n*"}],q:R("Нарисуйте перевёрнутый треугольник: в первой строке n звёздочек, в последней — одна.","Тескери үч бурчтук тартыңыз: биринчи сапта n жылдызча, акыркысында — бирөө."),hint:R("range(n, 0, -1)","range(n, 0, -1)")},
    {id:"f",type:"num",pts:1,ans:16,tol:0,q:R("Сколько раз выполнится print?\nfor i in range(4):\n    for j in range(4):\n        print(i, j)","print канча жолу аткарылат?\nfor i in range(4):\n    for j in range(4):\n        print(i, j)")},
-   {id:"g",type:"text",q:R("Придумайте свой узор (например, кыргызский орнамент из символов) и вставьте код. По желанию нарисуйте его в IDLE с turtle.","Өз оюуңузду ойлоп табыңыз (мисалы, символдордон кыргыз оюусу) жана кодун коюңуз. Кааласаңыз, аны IDLEде turtle менен тартыңыз.")}]
+      {id:"t3",type:"turtle",pts:3,start:"import turtle\nt = turtle.Turtle()\n",q:R("Розетка: нарисуйте квадрат со стороной 80 двенадцать раз, каждый раз поворачивая черепаху на 30°.","Розетка: жагы 80 болгон квадратты он эки жолу тартыңыз, ар бир жолу ташбаканы 30° бурап."),hint:R("Внешний цикл for k in range(12): внутри — цикл, рисующий квадрат, а после него t.left(30).","Сырткы цикл for k in range(12): ичинде — квадрат тарткан цикл, андан кийин t.left(30)."),
+    checks:[{p:1,d:R("48 сторон по 80","80ден 48 жак"),f:(S)=>TK.count(S,80)>=48},{p:1,d:R("квадраты повёрнуты (12 и больше направлений)","квадраттар бурулган (12 же андан көп багыт)"),f:(S)=>TK.dirs(S)>=12},{p:1,d:R("вложенный цикл","уяча цикл"),f:(S,o,c)=>TK.loops(c,2)}]},
+   {id:"g",type:"text",q:R("Придумайте свой узор (например, кыргызский орнамент) — символами или черепахой — и вставьте сюда код.","Өз оюуңузду ойлоп табыңыз (мисалы, кыргыз оюусу) — символдор же ташбака менен — жана кодун бул жерге коюңуз.")}]
  ]},
 {id:"8-11",n:11,code:"8.D1",title:R("База данных «Школьная библиотека»: запросы","«Мектеп китепканасы» маалымат базасы: суроо-талаптар"),illus:l=>ILL.dbtable(l),
  goal:R("Понять структуру базы данных и научиться выбирать, фильтровать и сортировать данные запросами SQL.","Маалымат базасынын түзүлүшүн түшүнүү жана SQL суроо-талаптары менен маалыматтарды тандоону, чыпкалоону жана иреттөөнү үйрөнүү."),
@@ -1607,15 +1637,16 @@ function shiftFormula(f,dr){return f.replace(/(\$?)([A-Za-zАВСЕавсе])(\$
 
 /* ============ Python (Pyodide в отдельном потоке) ============ */
 const PYODIDE_URL="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js";
-const PY_WRAP=["import builtins, sys, io","_lines = INPUT.split(\"\\n\")","def _inp(prompt=\"\"):","    return _lines.pop(0) if _lines else \"\"","builtins.input = _inp","_buf = io.StringIO()","_old = sys.stdout","sys.stdout = _buf","_err = \"\"","try:","    exec(USER_CODE, {\"__name__\": \"__main__\"})","except Exception as e:","    _err = \"\\n\" + type(e).__name__ + \": \" + str(e)","finally:","    sys.stdout = _old","_buf.getvalue() + _err"].join("\n");
+const PY_WRAP="import builtins, sys, io, json\nif \"turtle\" not in sys.modules or not hasattr(sys.modules[\"turtle\"], \"_reset\"):\n    exec(TURTLE_SRC, {})\n_tt = sys.modules[\"turtle\"]\n_tt._reset()\n_lines = INPUT.split(\"\\n\")\ndef _inp(prompt=\"\"):\n    return _lines.pop(0) if _lines else \"\"\nbuiltins.input = _inp\n_buf = io.StringIO()\n_old = sys.stdout\nsys.stdout = _buf\n_err = \"\"\ntry:\n    exec(USER_CODE, {\"__name__\": \"__main__\"})\nexcept Exception as e:\n    _err = \"\\n\" + type(e).__name__ + \": \" + str(e)\nfinally:\n    sys.stdout = _old\n_tops = \"\"\ntry:\n    _tt._final()\n    if _tt._ops:\n        _tops = \"\\x01\" + json.dumps(_tt._ops)\nexcept Exception:\n    pass\n_buf.getvalue() + _err + _tops\n";
+const TURTLE_SRC="import math as _m, types as _ty, sys as _sys\n_tm = _ty.ModuleType(\"turtle\")\n_tm._ops = []\n_tm._mode = [1.0]\n_tm._def = [None]\n_LIM = 30000\ndef _add(o):\n    if len(_tm._ops) < _LIM:\n        _tm._ops.append(o)\ndef _col(c):\n    if len(c) == 1:\n        c = c[0]\n    if isinstance(c, str):\n        return c\n    try:\n        r, g, b = c\n        k = 255.0 / _tm._mode[0]\n        return \"rgb(%d,%d,%d)\" % (round(r * k), round(g * k), round(b * k))\n    except Exception:\n        return \"black\"\nclass Turtle:\n    def __init__(self, *a, **k):\n        self._x = 0.0; self._y = 0.0; self._h = 0.0; self._pd = True\n        self._pc = \"black\"; self._fc = \"black\"; self._w = 1; self._vis = True\n        self._fill = None\n        _tm._tur.append(self)\n    def _go(self, nx, ny):\n        if self._pd:\n            _add([\"L\", round(self._x, 2), round(self._y, 2), round(nx, 2), round(ny, 2), self._pc, self._w])\n        if self._fill is not None:\n            self._fill.append([round(nx, 2), round(ny, 2)])\n        self._x, self._y = float(nx), float(ny)\n    def forward(self, d):\n        r = _m.radians(self._h)\n        self._go(self._x + d * _m.cos(r), self._y + d * _m.sin(r))\n    fd = forward\n    def back(self, d): self.forward(-d)\n    bk = backward = back\n    def left(self, a): self._h = (self._h + a) % 360\n    lt = left\n    def right(self, a): self._h = (self._h - a) % 360\n    rt = right\n    def goto(self, x, y=None):\n        if y is None: x, y = x\n        self._go(float(x), float(y))\n    setpos = setposition = goto\n    def setx(self, x): self.goto(x, self._y)\n    def sety(self, y): self.goto(self._x, y)\n    def setheading(self, a): self._h = a % 360\n    seth = setheading\n    def home(self): self.goto(0, 0); self._h = 0.0\n    def penup(self): self._pd = False\n    pu = up = penup\n    def pendown(self): self._pd = True\n    pd = down = pendown\n    def isdown(self): return self._pd\n    def pensize(self, w=None):\n        if w is None: return self._w\n        self._w = w\n    width = pensize\n    def pencolor(self, *c):\n        if not c: return self._pc\n        self._pc = _col(c)\n    def fillcolor(self, *c):\n        if not c: return self._fc\n        self._fc = _col(c)\n    def color(self, *c):\n        if not c: return (self._pc, self._fc)\n        if len(c) == 2 and not all(isinstance(v, (int, float)) for v in c):\n            self._pc = _col((c[0],)); self._fc = _col((c[1],))\n        else:\n            self._pc = self._fc = _col(c)\n    def begin_fill(self):\n        self._fill = [[round(self._x, 2), round(self._y, 2)]]; self._fz = len(_tm._ops)\n    def end_fill(self):\n        if self._fill and len(self._fill) > 2:\n            _add([\"F\", self._fill, self._fc, self._fz])\n        self._fill = None\n    def filling(self): return self._fill is not None\n    def circle(self, radius, extent=None, steps=None):\n        if extent is None: extent = 360\n        frac = abs(extent) / 360.0\n        if steps is None:\n            steps = 1 + int(min(11 + abs(radius) / 6.0, 59.0) * frac)\n        w = 1.0 * extent / steps; w2 = 0.5 * w\n        l = 2.0 * radius * _m.sin(_m.radians(w2))\n        if radius < 0: l, w, w2 = -l, -w, -w2\n        self.left(w2)\n        for _ in range(steps):\n            self.forward(l); self.left(w)\n        self.left(-w2)\n    def dot(self, size=None, *c):\n        _add([\"D\", round(self._x, 2), round(self._y, 2), size or max(self._w + 4, 2 * self._w), _col(c) if c else self._pc])\n    def write(self, arg, move=False, align=\"left\", font=(\"Arial\", 8, \"normal\")):\n        try: fs = int(font[1])\n        except Exception: fs = 8\n        _add([\"T\", round(self._x, 2), round(self._y, 2), str(arg), self._pc, fs, align])\n    def position(self): return (round(self._x, 6), round(self._y, 6))\n    pos = position\n    def xcor(self): return self._x\n    def ycor(self): return self._y\n    def heading(self): return self._h\n    def distance(self, x, y=None):\n        if y is None: x, y = x\n        return _m.hypot(self._x - x, self._y - y)\n    def hideturtle(self): self._vis = False\n    ht = hideturtle\n    def showturtle(self): self._vis = True\n    st = showturtle\n    def isvisible(self): return self._vis\n    def speed(self, *a): return 0\n    def shape(self, *a): return \"classic\"\n    def shapesize(self, *a, **k): pass\n    turtlesize = shapesize\n    def stamp(self): return 0\n    def clear(self): pass\n    def reset(self): self.__init__()\nclass _Screen:\n    def bgcolor(self, *c):\n        if c: _add([\"B\", _col(c)])\n    def colormode(self, m=None):\n        if m is None: return _tm._mode[0]\n        _tm._mode[0] = float(m)\n    def setup(self, *a, **k): pass\n    def title(self, *a): pass\n    def tracer(self, *a, **k): pass\n    def update(self): pass\n    def exitonclick(self): pass\n    def mainloop(self): pass\n    def done(self): pass\n    def bye(self): pass\n    def screensize(self, *a, **k): pass\n_scr = _Screen()\ndef _reset():\n    _tm._ops.clear(); _tm._mode[0] = 1.0; _tm._tur = []; _tm._def[0] = None\n_tm._reset = _reset\n_tm._tur = []\ndef _dflt():\n    if _tm._def[0] is None: _tm._def[0] = Turtle()\n    return _tm._def[0]\ndef _mk(name):\n    def f(*a, **k): return getattr(_dflt(), name)(*a, **k)\n    f.__name__ = name\n    return f\n_names = [n for n in dir(Turtle) if not n.startswith(\"_\")]\nfor _n in _names:\n    setattr(_tm, _n, _mk(_n))\nfor _n in [\"bgcolor\", \"colormode\", \"setup\", \"title\", \"tracer\", \"update\", \"exitonclick\", \"mainloop\", \"done\", \"bye\", \"screensize\"]:\n    setattr(_tm, _n, getattr(_scr, _n))\n_tm.Turtle = Turtle\n_tm.Pen = Turtle\n_tm.RawTurtle = Turtle\n_tm.Screen = lambda: _scr\n_tm.__all__ = _names + [\"bgcolor\", \"colormode\", \"setup\", \"title\", \"tracer\", \"update\", \"exitonclick\", \"mainloop\", \"done\", \"bye\", \"Turtle\", \"Screen\", \"Pen\"]\ndef _final():\n    for t in _tm._tur:\n        _add([\"E\", round(t._x, 2), round(t._y, 2), round(t._h, 2), 1 if t._vis else 0])\n_tm._final = _final\n_sys.modules[\"turtle\"] = _tm\n";
 let pyW=null,pyReady=null,pySeq=0;const pyCb={};
 function pyWorker(){if(pyW&&pyReady)return pyReady;
   const src=`importScripts(${JSON.stringify(PYODIDE_URL)});const P=loadPyodide();P.then(()=>postMessage({ready:1}),e=>postMessage({fail:String(e)}));
-onmessage=async e=>{const d=e.data;try{const py=await P;py.globals.set("USER_CODE",d.code);py.globals.set("INPUT",d.input);const out=py.runPython(${JSON.stringify(PY_WRAP)});postMessage({id:d.id,out:String(out)})}catch(err){postMessage({id:d.id,out:String(err)})}};`;
+onmessage=async e=>{const d=e.data;try{const py=await P;py.globals.set("USER_CODE",d.code);py.globals.set("INPUT",d.input);py.globals.set("TURTLE_SRC",${JSON.stringify(TURTLE_SRC)});const out=py.runPython(${JSON.stringify(PY_WRAP)});postMessage({id:d.id,out:String(out)})}catch(err){postMessage({id:d.id,out:String(err)})}};`;
   try{pyW=new Worker(URL.createObjectURL(new Blob([src],{type:"text/javascript"})))}catch(e){pyW=null;return Promise.reject(e)}
   pyReady=new Promise((res,rej)=>{pyW.onmessage=e=>{const d=e.data;if(d.ready)res();else if(d.fail)rej(d.fail);else if(pyCb[d.id]){pyCb[d.id](d.out);delete pyCb[d.id]}};pyW.onerror=e=>{rej(e.message||"worker")}});
   pyReady.catch(()=>{if(pyW)pyW.terminate();pyW=null;pyReady=null});return pyReady}
-async function runPy(code,input,ms=5000){await pyWorker();return new Promise(res=>{const id=++pySeq;const t=setTimeout(()=>{delete pyCb[id];if(pyW)pyW.terminate();pyW=null;pyReady=null;res({timeout:true})},ms);pyCb[id]=out=>{clearTimeout(t);res({out})};pyW.postMessage({id,code,input})})}
+async function runPy(code,input,ms=5000){await pyWorker();return new Promise(res=>{const id=++pySeq;const t=setTimeout(()=>{delete pyCb[id];if(pyW)pyW.terminate();pyW=null;pyReady=null;res({timeout:true})},ms);pyCb[id]=out=>{clearTimeout(t);res(splitTurtle(out))};pyW.postMessage({id,code,input})})}
 const toks=s=>String(s??"").trim().split(/\s+/).join(" ");
 async function checkCode(i,el,st){const out=$("[data-out]",el);
   if(i.must&&!i.must.every(m=>(st.ans||"").includes(m))){out.hidden=false;out.textContent=t_("mustUse")+" "+i.must.join(", ");return{frac:0}}
@@ -1624,6 +1655,918 @@ async function checkCode(i,el,st){const out=$("[data-out]",el);
   let pass=0;const lines=[];for(const [k,tc] of i.tests.entries()){const r_=await runPy(st.ans,tc.in);const got=r_.timeout?null:r_.out;const ok=got!=null&&toks(got)===toks(tc.out);if(ok)pass++;
     lines.push(`${ok?"✓":"✗"} ${t_("test")} ${k+1}: ${t_("stdin")} [${tc.in.replace(/\n/g," ")}] → ${t_("expected")} ${tc.out}${ok?"":", "+t_("got")+" "+(r_.timeout?t_("timeout"):(toks(got)||"—"))}`);if(r_.timeout)break}
   out.textContent=lines.join("\n");return{frac:pass/i.tests.length}}
+
+/* ============ Черепаха (turtle) ============ */
+function splitTurtle(out){out=String(out??"");const k=out.indexOf("\x01");if(k<0)return{out,ops:null};let ops=null;try{ops=JSON.parse(out.slice(k+1))}catch(e){}return{out:out.slice(0,k),ops}}
+function drawTurtle(cv,ops,anim=true){if(!cv)return;if(cv._raf)cancelAnimationFrame(cv._raf);const ctx=cv.getContext("2d"),dpr=window.devicePixelRatio||1,W=cv.clientWidth||340;cv.width=W*dpr;cv.height=W*dpr;
+  let m=180,bg="#ffffff";const items=[];(ops||[]).forEach((o,k)=>{const t=o[0];
+    if(t==="B")bg=o[1];
+    else if(t==="L"){m=Math.max(m,Math.abs(o[1]),Math.abs(o[2]),Math.abs(o[3]),Math.abs(o[4]));items.push({z:k,k,o})}
+    else if(t==="F"){o[1].forEach(p=>m=Math.max(m,Math.abs(p[0]),Math.abs(p[1])));items.push({z:o[3]??k,k,o})}
+    else if(t==="D"||t==="T"){m=Math.max(m,Math.abs(o[1])+12,Math.abs(o[2])+12);items.push({z:k,k,o})}});
+  const ends=(ops||[]).filter(o=>o[0]==="E");m*=1.1;const sc=W/(2*m),X=x=>W/2+x*sc,Y=y=>W/2-y*sc,lw=Math.min(1.5,Math.max(.6,sc));
+  const sorted=items.slice().sort((a,b)=>a.z-b.z||a.k-b.k);
+  const paint=n=>{ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle=bg;ctx.fillRect(0,0,W,W);
+    ctx.strokeStyle="rgba(0,0,0,.07)";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(W/2,0);ctx.lineTo(W/2,W);ctx.moveTo(0,W/2);ctx.lineTo(W,W/2);ctx.stroke();
+    ctx.lineCap="round";ctx.lineJoin="round";
+    for(const it of sorted){if(it.k>n)continue;const o=it.o;
+      if(o[0]==="L"){ctx.strokeStyle=o[5];ctx.lineWidth=Math.max(1,o[6]*lw);ctx.beginPath();ctx.moveTo(X(o[1]),Y(o[2]));ctx.lineTo(X(o[3]),Y(o[4]));ctx.stroke()}
+      else if(o[0]==="F"){ctx.fillStyle=o[2];ctx.beginPath();o[1].forEach((p,j)=>j?ctx.lineTo(X(p[0]),Y(p[1])):ctx.moveTo(X(p[0]),Y(p[1])));ctx.closePath();ctx.fill("evenodd")}
+      else if(o[0]==="D"){ctx.fillStyle=o[4];ctx.beginPath();ctx.arc(X(o[1]),Y(o[2]),Math.max(1.5,o[3]*lw/2),0,7);ctx.fill()}
+      else if(o[0]==="T"){ctx.fillStyle=o[4];ctx.font=`${Math.round(Math.max(10,o[5]*1.35*lw))}px system-ui,sans-serif`;ctx.textAlign=o[6]==="center"?"center":o[6]==="right"?"right":"left";ctx.fillText(o[3],X(o[1]),Y(o[2]))}}};
+  const arrows=()=>{for(const e of ends){if(!e[4])continue;ctx.save();ctx.translate(X(e[1]),Y(e[2]));ctx.rotate(-e[3]*Math.PI/180);ctx.fillStyle="#2b8a3e";ctx.strokeStyle="#fff";ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(12,0);ctx.lineTo(-7,8);ctx.lineTo(-3,0);ctx.lineTo(-7,-8);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore()}};
+  const N=(ops||[]).length;let rm=false;try{rm=matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){}
+  if(!anim||N>4000||rm){paint(N);arrows();return}
+  const per=Math.max(1,Math.ceil(N/70));let n=-1;const step=()=>{n+=per;paint(n);if(n<N-1)cv._raf=requestAnimationFrame(step);else arrows()};step()}
+const T0=[["E",0,0,0,1]];
+function tSegs(ops){const raw=(ops||[]).filter(o=>o[0]==="L").map(o=>({x1:o[1],y1:o[2],x2:o[3],y2:o[4],c:o[5]})).filter(s=>Math.hypot(s.x2-s.x1,s.y2-s.y1)>0.01);const M=[];
+  for(const s of raw){const p=M[M.length-1];if(p&&Math.abs(p.x2-s.x1)<0.05&&Math.abs(p.y2-s.y1)<0.05&&p.c===s.c){const a1=Math.atan2(p.y2-p.y1,p.x2-p.x1),a2=Math.atan2(s.y2-s.y1,s.x2-s.x1);let d=Math.abs(a1-a2)%(2*Math.PI);if(d>Math.PI)d=2*Math.PI-d;if(d<0.01){p.x2=s.x2;p.y2=s.y2;continue}}M.push({...s})}
+  return M.map(s=>({...s,len:Math.hypot(s.x2-s.x1,s.y2-s.y1),dir:Math.round(((Math.atan2(s.y2-s.y1,s.x2-s.x1)*180/Math.PI)+360)%360)%360}))}
+const TK={closed:S=>S.length>2&&Math.hypot(S[0].x1-S[S.length-1].x2,S[0].y1-S[S.length-1].y2)<1.5,
+  sides:(S,n,a)=>S.length===n&&S.every(s=>Math.abs(s.len-a)<=1.5),
+  count:(S,a)=>S.filter(s=>Math.abs(s.len-a)<=1.5).length,
+  dirs:S=>new Set(S.map(s=>s.dir)).size,
+  fills:ops=>(ops||[]).filter(o=>o[0]==="F").length,
+  colors:ops=>new Set((ops||[]).filter(o=>o[0]==="L"||o[0]==="F").map(o=>String(o[0]==="L"?o[5]:o[2]).toLowerCase())).size,
+  loops:(code,k)=>(String(code).match(/\b(for|while)\b/g)||[]).length>=k};
+async function runTurtleInto(el,code){const out=$("[data-out]",el),cv=$("[data-tcv]",el);out.hidden=false;out.textContent=t_("pyLoading");
+  try{await pyWorker()}catch(e){out.textContent=t_("pyFail");return null}
+  const r_=await runPy(code,"",8000);if(r_.timeout){out.textContent=t_("timeout");return{ops:[],out:""}}
+  const ops=r_.ops||[];drawTurtle(cv,ops.length?ops:T0);const txt=r_.out.trim();out.textContent=txt?txt:(ops.some(o=>o[0]!=="E")?t_("tDrawn"):t_("tNothing"));return{ops,out:r_.out}}
+async function checkTurtle(i,el,st){const res=await runTurtleInto(el,st.ans||"");if(!res)return null;const S_=tSegs(res.ops);
+  const marks=i.checks.map(c=>{try{return !!c.f(S_,res.ops,st.ans||"")}catch(e){return false}});const got=marks.reduce((n,m,j)=>n+(m?i.checks[j].p:0),0),tot=i.checks.reduce((n,c)=>n+c.p,0);return{frac:got/tot,marks}}
+
+/* ============ Учебник Python: оригинальные уроки ============ */
+const PYL=[
+{id:"intro",icon:"🐍",c:"#5b5bd6",title:R("Знакомство с Python","Python менен таанышуу"),
+ lead:R("Python — один из самых популярных языков программирования. На нём пишут сайты и игры, обрабатывают данные, управляют роботами и обучают искусственный интеллект. Язык создал нидерландский программист Гвидо ван Россум, первая версия вышла в 1991 году. Название взято из британского комедийного шоу «Летающий цирк Монти Пайтона», а не в честь змеи.",
+  "Python — эң популярдуу программалоо тилдеринин бири. Анда сайттарды жана оюндарды жазышат, маалыматтарды иштетишет, роботторду башкарышат жана жасалма интеллектти үйрөтүшөт. Тилди нидерланддык программист Гвидо ван Россум түзгөн, биринчи версиясы 1991-жылы чыккан. Аты жыландан эмес, британиялык «Монти Пайтондун учуучу цирки» комедиялык шоусунан алынган."),
+ sec:[
+  {h:R("Первая программа","Биринчи программа"),t:R(`<p><b>Программа</b> — это список команд для компьютера. Python выполняет их по порядку, сверху вниз. Команда <code>print()</code> выводит на экран то, что стоит в скобках. Текст пишут в кавычках, числа — без кавычек. Нажмите «Запустить», а потом поменяйте текст и запустите снова.</p>`,
+   `<p><b>Программа</b> — компьютер үчүн буйруктардын тизмеси. Python аларды иреті менен, жогорудан төмөн карай аткарат. <code>print()</code> буйругу кашаанын ичиндегини экранга чыгарат. Текст тырмакчага алынат, сандар тырмакчасыз жазылат. «Иштетүү» баскычын басыңыз, анан текстти өзгөртүп, кайра иштетиңиз.</p>`),
+   code:R(`print("Привет, мир!")
+print("Мне", 13, "лет")
+print(2 + 3)
+print("2 + 3")`,`print("Салам, дүйнө!")
+print("Мен", 13, "жаштамын")
+print(2 + 3)
+print("2 + 3")`)},
+  {h:R("Комментарии","Түшүндүрмөлөр"),t:R(`<p>Всё, что стоит после знака <code>#</code>, Python пропускает. Это <b>комментарий</b> — заметка для человека. Пустой <code>print()</code> выводит пустую строку.</p>`,
+   `<p><code>#</code> белгисинен кийинки нерсенин баарын Python өткөрүп жиберет. Бул — <b>түшүндүрмө</b> (комментарий), адам үчүн жазылган белги. Бош <code>print()</code> бош сап чыгарат.</p>`),
+   code:R(`# Это комментарий: его никто не выполняет
+print("Первая строка")
+print()          # пустая строка
+print("Третья строка")`,`# Бул түшүндүрмө: аны эч ким аткарбайт
+print("Биринчи сап")
+print()          # бош сап
+print("Үчүнчү сап")`)},
+  {h:R("Ошибки — это нормально","Ката кетирүү — кадимки нерсе"),t:R(`<p>Python различает большие и маленькие буквы: <code>print</code> и <code>Print</code> — разные слова. Если программа написана неправильно, Python сообщит об ошибке: её тип (<code>NameError</code>, <code>SyntaxError</code>) и что пошло не так. Запустите пример, прочитайте сообщение и исправьте ошибку.</p>`,
+   `<p>Python чоң жана кичине тамгаларды айырмалайт: <code>print</code> жана <code>Print</code> — ар башка сөздөр. Программа туура эмес жазылса, Python ката жөнүндө билдирет: катанын түрүн (<code>NameError</code>, <code>SyntaxError</code>) жана эмне туура эмес болгонун. Мисалды иштетип, билдирүүнү окуп, катаны оңдоңуз.</p>`),
+   code:`Print("Ош")`}],
+ remember:R(`<ul><li><code>print(...)</code> выводит данные; несколько значений — через запятую.</li><li>Текст — в кавычках, числа — без кавычек.</li><li><code>#</code> — комментарий.</li><li>Большие и маленькие буквы различаются.</li></ul>`,
+  `<ul><li><code>print(...)</code> маалыматты чыгарат; бир нече маанини үтүр менен жазабыз.</li><li>Текст — тырмакчада, сандар — тырмакчасыз.</li><li><code>#</code> — түшүндүрмө.</li><li>Чоң жана кичине тамгалар айырмаланат.</li></ul>`),
+ quiz:[
+  {type:"choice",q:R("Что выведет программа?\nprint(\"5 + 5\")","Программа эмне чыгарат?\nprint(\"5 + 5\")"),opts:["10","5 + 5",R("ошибку","ката")],ans:1,why:R("В кавычках — текст, Python выводит его как есть.","Тырмакчанын ичинде — текст, Python аны ошол бойдон чыгарат.")},
+  {type:"choice",q:R("В какой строке ошибка?","Кайсы сапта ката бар?"),opts:['print("Салам")','Print("Салам")','print(7)'],ans:1,why:R("Print с большой буквы Python не знает.","Чоң тамга менен жазылган Print'ти Python билбейт.")},
+  {type:"str",q:R("Что выведет программа?\nprint(\"Ала\", \"Тоо\")","Программа эмне чыгарат?\nprint(\"Ала\", \"Тоо\")"),ans:["Ала Тоо"],why:R("Значения через запятую выводятся через пробел.","Үтүр менен жазылган маанилер боштук аркылуу чыгат.")}],
+ task:{q:R("Выведите две строки: на первой — Салам!, на второй — 7 + 8 = 15. Число 15 должен вычислить сам Python.","Эки сап чыгарыңыз: биринчисинде — Салам!, экинчисинде — 7 + 8 = 15. 15 санын Python өзү эсептеши керек."),
+  start:"",not:["15"],tests:[{in:"",out:"Салам!\n7 + 8 = 15"}],hint:R('print("7 + 8 =", 7 + 8)','print("7 + 8 =", 7 + 8)')}},
+
+{id:"vars",icon:"📦",c:"#1f6feb",title:R("Переменные","Өзгөрмөлөр"),
+ lead:R("Представьте полку с банками, на каждой — наклейка: «сахар», «рис», «чай». Переменная устроена так же: у неё есть имя (наклейка) и значение (то, что лежит внутри). Значение можно достать, посмотреть и заменить.",
+  "Текчедеги банкаларды элестетиңиз, ар биринде жазуу бар: «кант», «күрүч», «чай». Өзгөрмө да ушундай: анын аты (жазуу) жана мааниси (ичиндеги нерсе) бар. Маанини алып, карап, алмаштырууга болот."),
+ sec:[
+  {h:R("Присваивание","Ыйгаруу"),t:R(`<p>Запись <code>age = 13</code> означает «положить 13 в переменную age». Знак <code>=</code> здесь не «равно», а <b>присвоить</b>: сначала вычисляется правая часть, потом результат кладётся в переменную слева.</p>`,
+   `<p><code>age = 13</code> жазуусу «13тү age өзгөрмөсүнө салуу» дегенди билдирет. Бул жерде <code>=</code> белгиси «барабар» эмес, <b>ыйгаруу</b>: адегенде оң жагы эсептелет, анан жыйынтык сол жактагы өзгөрмөгө салынат.</p>`),
+   code:R(`name = "Айбек"
+age = 13
+height = 1.58
+print(name, age, height)
+next_year = age + 1
+print("В следующем году:", next_year)`,`name = "Айбек"
+age = 13
+height = 1.58
+print(name, age, height)
+next_year = age + 1
+print("Келерки жылы:", next_year)`)},
+  {h:R("Значение можно менять","Маанини өзгөртүүгө болот"),t:R(`<p>Новое значение заменяет старое. Запись <code>score = score + 10</code> берёт старое значение, прибавляет 10 и кладёт результат обратно. Короткая форма — <code>score += 10</code>. Так же работают <code>-=</code>, <code>*=</code>, <code>/=</code>.</p>`,
+   `<p>Жаңы маани эскисинин ордун басат. <code>score = score + 10</code> жазуусу эски маанини алып, ага 10 кошуп, жыйынтыкты кайра салат. Кыска түрү — <code>score += 10</code>. <code>-=</code>, <code>*=</code>, <code>/=</code> да ушундай иштейт.</p>`),
+   code:R(`score = 0
+print("Начало:", score)
+score = score + 10   # +10 за первое задание
+score += 5           # +5 за второе
+score *= 2           # бонус: удвоение
+print("Итог:", score)`,`score = 0
+print("Башында:", score)
+score = score + 10   # биринчи тапшырма үчүн +10
+score += 5           # экинчиси үчүн +5
+score *= 2           # бонус: эки эсе
+print("Жыйынтык:", score)`)},
+  {h:R("Как называть переменные","Өзгөрмөлөрдү кантип атоо керек"),t:R(`<p>Имя состоит из латинских букв, цифр и знака <code>_</code>, не начинается с цифры и не содержит пробелов. <code>Age</code> и <code>age</code> — разные переменные. Нельзя брать служебные слова языка (<code>for</code>, <code>if</code>, <code>while</code> и др.). Хорошее имя подсказывает смысл: <code>price</code>, <code>total_sum</code>, а не <code>x1</code>. Интересный приём — обмен значений в одну строку:</p>`,
+   `<p>Аты латын тамгаларынан, сандардан жана <code>_</code> белгисинен турат, сан менен башталбайт жана боштук камтыбайт. <code>Age</code> жана <code>age</code> — ар башка өзгөрмөлөр. Тилдин кызматтык сөздөрүн (<code>for</code>, <code>if</code>, <code>while</code> ж.б.) алууга болбойт. Жакшы ат маанисин айтып турат: <code>x1</code> эмес, <code>price</code>, <code>total_sum</code>. Кызыктуу ыкма — маанилерди бир сапта алмаштыруу:</p>`),
+   code:`a = 3
+b = 8
+a, b = b, a
+print(a, b)`}],
+ remember:R(`<ul><li><code>=</code> — присваивание: справа вычисляем, слева сохраняем.</li><li>Новое значение стирает старое.</li><li><code>x += 1</code> — то же, что <code>x = x + 1</code>.</li><li>Имя: латиница, цифры, <code>_</code>; не с цифры; регистр важен.</li></ul>`,
+  `<ul><li><code>=</code> — ыйгаруу: оң жагын эсептейбиз, сол жагына сактайбыз.</li><li>Жаңы маани эскисин өчүрөт.</li><li><code>x += 1</code> — <code>x = x + 1</code> менен бирдей.</li><li>Ат: латын тамгалары, сандар, <code>_</code>; сан менен башталбайт; регистр маанилүү.</li></ul>`),
+ quiz:[
+  {type:"num",q:R("Что выведет программа?\nx = 5\nx = x * 2\nx = x + 1\nprint(x)","Программа эмне чыгарат?\nx = 5\nx = x * 2\nx = x + 1\nprint(x)"),ans:11,why:R("5 · 2 = 10, затем 10 + 1 = 11.","5 · 2 = 10, анан 10 + 1 = 11.")},
+  {type:"choice",q:R("Какое имя переменной допустимо?","Өзгөрмөнүн кайсы аты жарактуу?"),opts:["2name","my-name","my_name","my name"],ans:2,why:R("Дефис и пробел нельзя, начинать с цифры нельзя.","Дефис жана боштук болбойт, сан менен баштоого болбойт.")},
+  {type:"str",q:R("Что выведет программа?\na = \"кот\"\nb = a\na = \"пёс\"\nprint(b)","Программа эмне чыгарат?\na = \"мышык\"\nb = a\na = \"ит\"\nprint(b)"),ans:["кот","мышык"],why:R("b получила значение a до того, как a изменили.","b өзгөрмөсү a өзгөргөнгө чейин анын маанисин алган.")}],
+ task:{q:R("Даны значения a и b (каждое на своей строке). Поменяйте их местами и выведите a и b через пробел.","a жана b маанилери берилген (ар бири өз сабында). Аларды алмаштырып, a жана b'ни боштук аркылуу чыгарыңыз."),
+  start:R("a = input()\nb = input()\n# ваш код\nprint(a, b)","a = input()\nb = input()\n# сиздин код\nprint(a, b)"),tests:[{in:"3\n8",out:"8 3"},{in:"Ош\nНарын",out:"Нарын Ош"}],hint:R("a, b = b, a","a, b = b, a")}},
+
+{id:"types",icon:"🔤",c:"#0c8599",title:R("Типы данных","Маалымат түрлөрү"),
+ lead:R("В жизни мы по-разному обращаемся с разными вещами: числа складываем, слова читаем, на вопрос «да/нет» отвечаем одним словом. В Python у каждого значения тоже есть тип, и от него зависит, что с ним можно делать.",
+  "Турмушта ар кандай нерселер менен ар башкача мамиле кылабыз: сандарды кошобуз, сөздөрдү окуйбуз, «ооба/жок» суроосуна бир сөз менен жооп беребиз. Python'до да ар бир маанинин түрү бар жана аны менен эмне кылууга болору ошол түргө жараша болот."),
+ sec:[
+  {h:R("Четыре основных типа","Негизги төрт түр"),t:R(`<p><code>int</code> — целые числа (<code>15</code>, <code>-3</code>); <code>float</code> — дробные числа, пишутся <b>через точку</b> (<code>3.5</code>); <code>str</code> — строки, текст в кавычках (<code>"Ош"</code>, <code>'15'</code>); <code>bool</code> — логические значения <code>True</code> (истина) и <code>False</code> (ложь). Функция <code>type()</code> показывает тип значения.</p>`,
+   `<p><code>int</code> — бүтүн сандар (<code>15</code>, <code>-3</code>); <code>float</code> — бөлчөк сандар, <b>чекит аркылуу</b> жазылат (<code>3.5</code>); <code>str</code> — саптар, тырмакчадагы текст (<code>"Ош"</code>, <code>'15'</code>); <code>bool</code> — логикалык маанилер <code>True</code> (чын) жана <code>False</code> (жалган). <code>type()</code> функциясы маанинин түрүн көрсөтөт.</p>`),
+   code:`print(type(15))
+print(type(3.5))
+print(type("15"))
+print(type(True))`},
+  {h:R("Один знак — разные действия","Бир белги — ар башка аракеттер"),t:R(`<p>Для чисел <code>+</code> складывает, а для строк — <b>склеивает</b>. Строку можно умножить на целое число — она повторится. А вот сложить строку с числом нельзя: Python не знает, что вы хотите получить.</p>`,
+   `<p>Сандар үчүн <code>+</code> кошот, ал эми саптар үчүн <b>улайт</b>. Сапты бүтүн санга көбөйтсө болот — ал кайталанат. Ал эми сапты сан менен кошууга болбойт: Python эмне алгыңыз келгенин билбейт.</p>`),
+   code:`print(5 + 5)
+print("5" + "5")
+print("ха" * 3)
+print("5" + 5)`},
+  {h:R("Преобразование типов","Түрлөрдү өзгөртүү"),t:R(`<p><code>int("25")</code> превращает строку в целое число, <code>float("2.5")</code> — в дробное, <code>str(100)</code> — число в строку. <code>int(3.9)</code> даёт <code>3</code>: дробная часть просто отбрасывается, без округления.</p>`,
+   `<p><code>int("25")</code> сапты бүтүн санга, <code>float("2.5")</code> — бөлчөк санга, <code>str(100)</code> — санды сапка айлантат. <code>int(3.9)</code> <code>3</code> берет: бөлчөк бөлүгү тегеректелбей эле ыргытылат.</p>`),
+   code:`a = "25"
+b = int(a) + 5
+print(b)
+print(str(b) + "!")
+print(int(3.9), float("2.5") * 2)`},
+  {h:R("Логический тип","Логикалык түр"),t:R(`<p>Результат сравнения — значение типа <code>bool</code>. Оно пригодится в ветвлениях и циклах.</p>`,`<p>Салыштыруунун жыйынтыгы — <code>bool</code> түрүндөгү маани. Ал тармактанууларда жана циклдерде керек болот.</p>`),
+   code:`print(7 > 3)
+print(2 == 5)
+print("а" < "б")`}],
+ remember:R(`<ul><li><code>int</code>, <code>float</code>, <code>str</code>, <code>bool</code>; узнать тип — <code>type(x)</code>.</li><li>Дробные числа пишутся через точку.</li><li><code>"5" + "5"</code> → <code>55</code>, <code>5 + 5</code> → <code>10</code>.</li><li><code>int()</code>, <code>float()</code>, <code>str()</code> меняют тип.</li></ul>`,
+  `<ul><li><code>int</code>, <code>float</code>, <code>str</code>, <code>bool</code>; түрүн билүү — <code>type(x)</code>.</li><li>Бөлчөк сандар чекит аркылуу жазылат.</li><li><code>"5" + "5"</code> → <code>55</code>, <code>5 + 5</code> → <code>10</code>.</li><li><code>int()</code>, <code>float()</code>, <code>str()</code> түрүн өзгөртөт.</li></ul>`),
+ quiz:[
+  {type:"choice",q:R("Какой тип у значения \"3.14\"?","\"3.14\" маанисинин түрү кандай?"),opts:["int","float","str","bool"],ans:2,why:R("Оно в кавычках — значит, это строка.","Ал тырмакчада — демек, сап.")},
+  {type:"str",q:R("Что выведет программа?\nprint(\"ab\" * 3)","Программа эмне чыгарат?\nprint(\"ab\" * 3)"),ans:["ababab"],why:R("Строка повторяется 3 раза.","Сап 3 жолу кайталанат.")},
+  {type:"num",q:R("Что выведет программа?\nprint(int(\"7\") + int(3.8))","Программа эмне чыгарат?\nprint(int(\"7\") + int(3.8))"),ans:10,why:R("int(3.8) = 3, 7 + 3 = 10.","int(3.8) = 3, 7 + 3 = 10.")}],
+ task:{q:R("Вводится строка из цифр, например 12. Выведите на первой строке удвоенное число (24), а на второй — строку, повторённую дважды (1212).","Цифралардан турган сап киргизилет, мисалы 12. Биринчи сапка эки эселенген санды (24), экинчи сапка эки жолу кайталанган сапты (1212) чыгарыңыз."),
+  start:"s = input()\n",tests:[{in:"12",out:"24\n1212"},{in:"5",out:"10\n55"},{in:"307",out:"614\n307307"}],hint:R("print(int(s) * 2)\nprint(s * 2)","print(int(s) * 2)\nprint(s * 2)")}},
+
+{id:"input",icon:"⌨️",c:"#7048e8",title:R("Ввод данных","Маалыматтарды киргизүү"),
+ lead:R("Программа становится интереснее, когда она общается с человеком: спрашивает имя, возраст, числа для расчёта. Для этого есть функция input(). В тренажёре ввод заранее пишется в поле «Ввод», каждое значение — на своей строке.",
+  "Программа адам менен сүйлөшкөндө кызыктуураак болот: атын, жашын, эсептөө үчүн сандарды сурайт. Бул үчүн input() функциясы бар. Машыктыргычта киргизилүүчү маалымат «Киргизүү» талаасына алдын ала жазылат, ар бир маани — өз сабында."),
+ sec:[
+  {h:R("Функция input()","input() функциясы"),t:R(`<p><code>input()</code> ждёт, пока человек введёт строку и нажмёт Enter, и возвращает введённое. В скобках можно написать подсказку-вопрос.</p>`,
+   `<p><code>input()</code> адам сапты киргизип, Enter баскычын басканга чейин күтөт жана киргизилгенди кайтарат. Кашаанын ичине суроо-ишарат жазууга болот.</p>`),
+   code:R(`name = input("Как тебя зовут? ")
+print("Салам,", name)`,`name = input("Атың ким? ")
+print("Салам,", name)`),inp:"Айжан"},
+  {h:R("Ввод чисел","Сандарды киргизүү"),t:R(`<p><code>input()</code> <b>всегда</b> возвращает строку. Чтобы считать, строку превращаем в число: <code>int(input())</code> — целое, <code>float(input())</code> — дробное. Без этого <code>"3" + "4"</code> даст <code>34</code>, а не <code>7</code>.</p>`,
+   `<p><code>input()</code> <b>дайыма</b> сап кайтарат. Эсептөө үчүн сапты санга айлантабыз: <code>int(input())</code> — бүтүн, <code>float(input())</code> — бөлчөк. Антпесек, <code>"3" + "4"</code> <code>7</code> эмес, <code>34</code> болот.</p>`),
+   code:R(`a = input()
+b = input()
+print("Как строки:", a + b)
+print("Как числа:", int(a) + int(b))`,`a = input()
+b = input()
+print("Сап катары:", a + b)
+print("Сан катары:", int(a) + int(b))`),inp:"3\n4"},
+  {h:R("Несколько чисел в одной строке","Бир саптагы бир нече сан"),t:R(`<p>Если числа введены через пробел, строку разбивают методом <code>split()</code>, а <code>map(int, ...)</code> превращает каждую часть в число.</p>`,
+   `<p>Сандар боштук аркылуу киргизилсе, сапты <code>split()</code> методу менен бөлөбүз, ал эми <code>map(int, ...)</code> ар бир бөлүгүн санга айлантат.</p>`),
+   code:`a, b = map(int, input().split())
+print(a * b)`,inp:"6 7"},
+  {h:R("Красивый вывод: f-строки","Кооз чыгаруу: f-саптар"),t:R(`<p>Перед кавычками ставят букву <code>f</code>, а переменные пишут в фигурных скобках — Python подставит их значения. Параметр <code>sep</code> задаёт разделитель между значениями, <code>end</code> — чем закончить строку.</p>`,
+   `<p>Тырмакчанын алдына <code>f</code> тамгасын коюп, өзгөрмөлөрдү фигуралык кашаага жазабыз — Python алардын маанилерин коёт. <code>sep</code> параметри маанилердин ортосундагы бөлгүчтү, <code>end</code> — сап эмне менен бүтөрүн белгилейт.</p>`),
+   code:R(`name = "Нурлан"
+age = 14
+print(f"{name}, тебе {age} лет. Через 4 года будет {age + 4}.")
+print(1, 2, 3, sep=" -> ")
+print("без перехода", end="... ")
+print("продолжение")`,`name = "Нурлан"
+age = 14
+print(f"{name}, сен {age} жаштасың. 4 жылдан кийин {age + 4} болосуң.")
+print(1, 2, 3, sep=" -> ")
+print("жаңы сапсыз", end="... ")
+print("уландысы")`)}],
+ remember:R(`<ul><li><code>input()</code> возвращает строку.</li><li>Число: <code>int(input())</code> или <code>float(input())</code>.</li><li>Несколько чисел в строке: <code>map(int, input().split())</code>.</li><li><code>f"...{x}..."</code> — подстановка значений в текст.</li></ul>`,
+  `<ul><li><code>input()</code> сап кайтарат.</li><li>Сан: <code>int(input())</code> же <code>float(input())</code>.</li><li>Бир саптагы бир нече сан: <code>map(int, input().split())</code>.</li><li><code>f"...{x}..."</code> — маанилерди текстке коюу.</li></ul>`),
+ quiz:[
+  {type:"choice",q:R("Значение какого типа возвращает input()?","input() кайсы түрдөгү маанини кайтарат?"),opts:["int","str","float",R("зависит от ввода","киргизилгенге жараша")],ans:1,why:R("Всегда строку, даже если ввели цифры.","Цифра киргизилсе да, дайыма сап.")},
+  {type:"str",q:R("Пользователь ввёл 4. Что выведет программа?\nx = input()\nprint(x * 2)","Колдонуучу 4 киргизди. Программа эмне чыгарат?\nx = input()\nprint(x * 2)"),ans:["44"],why:R("x — строка \"4\", она повторяется дважды.","x — \"4\" сабы, ал эки жолу кайталанат.")},
+  {type:"choice",q:R("Как правильно ввести целое число?","Бүтүн санды кантип туура киргизүү керек?"),opts:["input(int())","int(input())","int input()"],ans:1,why:R("Сначала input() читает строку, потом int() делает из неё число.","Адегенде input() сапты окуйт, анан int() андан сан жасайт.")}],
+ task:{q:R("Вводятся длина и ширина прямоугольника (каждое число на своей строке). Выведите через пробел площадь и периметр.","Тик бурчтуктун узундугу жана туурасы киргизилет (ар бир сан өз сабында). Аянтын жана периметрин боштук аркылуу чыгарыңыз."),
+  start:"a = int(input())\nb = int(input())\n",tests:[{in:"5\n3",out:"15 16"},{in:"10\n10",out:"100 40"},{in:"1\n7",out:"7 16"}],hint:R("print(a * b, 2 * (a + b))","print(a * b, 2 * (a + b))")}},
+
+{id:"ops",icon:"➗",c:"#e8590c",title:R("Арифметика и выражения","Арифметика жана туюнтмалар"),
+ lead:R("Python — отличный калькулятор, но умеет больше обычного: делить нацело, находить остаток, возводить в степень и разбирать число на цифры.",
+  "Python — мыкты калькулятор, бирок кадимкисинен көптү билет: толук бөлүүнү, калдыкты табууну, даражага көтөрүүнү жана санды цифраларга ажыратууну."),
+ sec:[
+  {h:R("Действия с числами","Сандар менен амалдар"),t:R(`<p><code>+</code> <code>-</code> <code>*</code> — как в математике. <code>/</code> — деление, результат всегда дробный: <code>10 / 2</code> → <code>5.0</code>. <code>**</code> — возведение в степень.</p>`,
+   `<p><code>+</code> <code>-</code> <code>*</code> — математикадагыдай. <code>/</code> — бөлүү, жыйынтыгы дайыма бөлчөк: <code>10 / 2</code> → <code>5.0</code>. <code>**</code> — даражага көтөрүү.</p>`),
+   code:`print(7 + 2, 7 - 2, 7 * 2)
+print(10 / 2, 7 / 2)
+print(2 ** 10)`},
+  {h:R("Целая часть и остаток","Бүтүн бөлүк жана калдык"),t:R(`<p><code>//</code> — целая часть от деления, <code>%</code> — остаток. Пример: фильм идёт 135 минут — это 2 часа и 15 минут. По остатку проверяют чётность: если <code>n % 2 == 0</code>, число чётное.</p>`,
+   `<p><code>//</code> — бөлүүнүн бүтүн бөлүгү, <code>%</code> — калдык. Мисал: тасма 135 мүнөт жүрөт — бул 2 саат 15 мүнөт. Калдык боюнча жуп-тактыгын текшеришет: <code>n % 2 == 0</code> болсо, сан жуп.</p>`),
+   code:R(`minutes = 135
+print(minutes // 60, "ч", minutes % 60, "мин")
+print(17 // 5, 17 % 5)
+print(14 % 2, 15 % 2)`,`minutes = 135
+print(minutes // 60, "саат", minutes % 60, "мүн")
+print(17 // 5, 17 % 5)
+print(14 % 2, 15 % 2)`)},
+  {h:R("Порядок действий","Амалдардын тартиби"),t:R(`<p>Сначала <code>**</code>, потом <code>*</code> <code>/</code> <code>//</code> <code>%</code>, в конце <code>+</code> и <code>-</code>. Скобки меняют порядок. Полезные функции: <code>round(x, 2)</code> — округлить до 2 знаков, <code>abs(x)</code> — модуль числа.</p>`,
+   `<p>Адегенде <code>**</code>, анан <code>*</code> <code>/</code> <code>//</code> <code>%</code>, акырында <code>+</code> жана <code>-</code>. Кашаалар тартипти өзгөртөт. Пайдалуу функциялар: <code>round(x, 2)</code> — 2 белгиге чейин тегеректөө, <code>abs(x)</code> — сандын модулу.</p>`),
+   code:`print(2 + 3 * 4)
+print((2 + 3) * 4)
+print(round(3.14159, 2), abs(-8))`},
+  {h:R("Разбираем число на цифры","Санды цифраларга ажыратабыз"),t:R(`<p>Последняя цифра числа — остаток от деления на 10. Если разделить нацело на 10, последняя цифра «отрежется».</p>`,
+   `<p>Сандын акыркы цифрасы — 10го бөлгөндөгү калдык. 10го толук бөлсөк, акыркы цифра «кесилет».</p>`),
+   code:R(`n = 472
+print("единицы:", n % 10)
+print("десятки:", n // 10 % 10)
+print("сотни:", n // 100)`,`n = 472
+print("бирдиктер:", n % 10)
+print("ондуктар:", n // 10 % 10)
+print("жүздүктөр:", n // 100)`)}],
+ remember:R(`<ul><li><code>/</code> — обычное деление (дробный результат), <code>//</code> — целая часть, <code>%</code> — остаток.</li><li><code>**</code> — степень.</li><li><code>n % 10</code> — последняя цифра, <code>n // 10</code> — число без последней цифры.</li></ul>`,
+  `<ul><li><code>/</code> — кадимки бөлүү (бөлчөк жыйынтык), <code>//</code> — бүтүн бөлүк, <code>%</code> — калдык.</li><li><code>**</code> — даража.</li><li><code>n % 10</code> — акыркы цифра, <code>n // 10</code> — акыркы цифрасыз сан.</li></ul>`),
+ quiz:[
+  {type:"num",q:R("Чему равно 17 % 4?","17 % 4 эмнеге барабар?"),ans:1,why:R("17 = 4 · 4 + 1, остаток 1.","17 = 4 · 4 + 1, калдык 1.")},
+  {type:"num",q:R("Что выведет программа?\nprint(2 + 3 * 2 ** 2)","Программа эмне чыгарат?\nprint(2 + 3 * 2 ** 2)"),ans:14,why:R("2 ** 2 = 4, 3 · 4 = 12, 2 + 12 = 14.","2 ** 2 = 4, 3 · 4 = 12, 2 + 12 = 14.")},
+  {type:"str",q:R("Что выведет программа?\nprint(7 / 2)","Программа эмне чыгарат?\nprint(7 / 2)"),ans:["3.5"],why:R("Обычное деление даёт дробный результат.","Кадимки бөлүү бөлчөк жыйынтык берет.")}],
+ task:{q:R("Вводится трёхзначное число. Выведите сумму его цифр.","Үч орундуу сан киргизилет. Анын цифраларынын суммасын чыгарыңыз."),
+  start:"n = int(input())\n",tests:[{in:"472",out:"13"},{in:"105",out:"6"},{in:"999",out:"27"}],hint:R("n % 10 + n // 10 % 10 + n // 100","n % 10 + n // 10 % 10 + n // 100")}},
+
+{id:"if",icon:"🔀",c:"#2f9e44",title:R("Ветвления: if, elif, else","Тармактануу: if, elif, else"),
+ lead:R("Каждый день мы принимаем решения: если идёт дождь — берём зонт, иначе — кепку. Программы тоже умеют выбирать, какие команды выполнить. Для этого есть ветвление.",
+  "Күн сайын чечим кабыл алабыз: жамгыр жааса — кол чатыр алабыз, антпесе — кепка. Программалар да кайсы буйруктарды аткарууну тандай алат. Бул үчүн тармактануу бар."),
+ sec:[
+  {h:R("if и else","if жана else"),t:R(`<p>После <code>if</code> пишут условие и двоеточие. Команды, которые выполняются при истинном условии, сдвигают вправо на 4 пробела — это <b>отступ</b>. Блок <code>else</code> выполняется, если условие ложно. Попробуйте ввести разные температуры.</p>`,
+   `<p><code>if</code> сөзүнөн кийин шарт жана кош чекит жазылат. Шарт чын болгондо аткарылуучу буйруктар 4 боштук оңго жылдырылат — бул <b>абзац</b> (отступ). <code>else</code> блогу шарт жалган болгондо аткарылат. Ар кандай температураны киргизип көрүңүз.</p>`),
+   code:R(`t = int(input())
+if t < 0:
+    print("Мороз! Надень шапку.")
+else:
+    print("Выше нуля.")
+print("Хорошего дня!")`,`t = int(input())
+if t < 0:
+    print("Суук! Топу кий.")
+else:
+    print("Нөлдөн жогору.")
+print("Күнүң жакшы өтсүн!")`),inp:"-7"},
+  {h:R("Операции сравнения","Салыштыруу амалдары"),t:R(`<p><code>==</code> равно, <code>!=</code> не равно, <code>&lt;</code> <code>&gt;</code> меньше и больше, <code>&lt;=</code> <code>&gt;=</code> меньше или равно, больше или равно. Не путайте: <code>=</code> присваивает, <code>==</code> сравнивает. Python позволяет писать двойные сравнения: <code>10 &lt;= x &lt;= 20</code>.</p>`,
+   `<p><code>==</code> барабар, <code>!=</code> барабар эмес, <code>&lt;</code> <code>&gt;</code> кичине жана чоң, <code>&lt;=</code> <code>&gt;=</code> кичине же барабар, чоң же барабар. Чаташтырбаңыз: <code>=</code> ыйгарат, <code>==</code> салыштырат. Python кош салыштырууну жазууга мүмкүндүк берет: <code>10 &lt;= x &lt;= 20</code>.</p>`),
+   code:R(`n = int(input())
+if n % 2 == 0:
+    print(n, "— чётное")
+else:
+    print(n, "— нечётное")
+if 10 <= n <= 99:
+    print("Двузначное число")`,`n = int(input())
+if n % 2 == 0:
+    print(n, "— жуп")
+else:
+    print(n, "— так")
+if 10 <= n <= 99:
+    print("Эки орундуу сан")`),inp:"42"},
+  {h:R("Много вариантов: elif","Көп вариант: elif"),t:R(`<p><code>elif</code> («иначе если») проверяет следующее условие, только если предыдущие оказались ложными. Выполняется <b>первый</b> подходящий блок, остальные пропускаются.</p>`,
+   `<p><code>elif</code> («антпесе эгерде») мурунку шарттар жалган болгондо гана кийинки шартты текшерет. <b>Биринчи</b> ылайыктуу блок аткарылат, калгандары өткөрүлүп жиберилет.</p>`),
+   code:R(`score = int(input())   # баллы от 0 до 100
+if score >= 85:
+    print("Оценка 5")
+elif score >= 70:
+    print("Оценка 4")
+elif score >= 50:
+    print("Оценка 3")
+else:
+    print("Оценка 2")`,`score = int(input())   # 0дөн 100гө чейинки упай
+if score >= 85:
+    print("Баа 5")
+elif score >= 70:
+    print("Баа 4")
+elif score >= 50:
+    print("Баа 3")
+else:
+    print("Баа 2")`),inp:"78"},
+  {h:R("Сложные условия: and, or, not","Татаал шарттар: and, or, not"),t:R(`<p><code>and</code> (И) — истинно, когда верны <b>оба</b> условия. <code>or</code> (ИЛИ) — когда верно <b>хотя бы одно</b>. <code>not</code> (НЕ) меняет истину на ложь. Пример: скидку на билет получают дети до 12 лет и люди от 63 лет.</p>`,
+   `<p><code>and</code> (ЖАНА) — <b>эки</b> шарт тең туура болгондо чын. <code>or</code> (ЖЕ) — <b>жок дегенде бирөө</b> туура болгондо. <code>not</code> (ЭМЕС) чындыкты жалганга алмаштырат. Мисал: билетке арзандатууну 12 жашка чейинки балдар жана 63 жаштан баштап адамдар алышат.</p>`),
+   code:R(`age = int(input())
+if age < 12 or age >= 63:
+    print("Билет со скидкой")
+else:
+    print("Полный билет")
+if age >= 14 and age <= 17:
+    print("Подросток")`,`age = int(input())
+if age < 12 or age >= 63:
+    print("Арзандатылган билет")
+else:
+    print("Толук билет")
+if age >= 14 and age <= 17:
+    print("Өспүрүм")`),inp:"70"}],
+ remember:R(`<ul><li><code>if условие:</code> — двоеточие и отступ 4 пробела обязательны.</li><li><code>elif</code> — следующая проверка, <code>else</code> — «во всех остальных случаях».</li><li><code>==</code> сравнивает, <code>=</code> присваивает.</li><li><code>and</code> — оба верны, <code>or</code> — хотя бы одно, <code>not</code> — наоборот.</li></ul>`,
+  `<ul><li><code>if шарт:</code> — кош чекит жана 4 боштук абзац сөзсүз.</li><li><code>elif</code> — кийинки текшерүү, <code>else</code> — «калган бардык учурларда».</li><li><code>==</code> салыштырат, <code>=</code> ыйгарат.</li><li><code>and</code> — экөө тең, <code>or</code> — жок дегенде бирөө, <code>not</code> — тескерисинче.</li></ul>`),
+ quiz:[
+  {type:"choice",q:R("Какой знак проверяет равенство?","Барабардыкты кайсы белги текшерет?"),opts:["=","==","=>"],ans:1,why:R("Один знак = — это присваивание.","Жалгыз = белгиси — ыйгаруу.")},
+  {type:"choice",q:R("x = 5. Какое условие истинно?","x = 5. Кайсы шарт чын?"),opts:["x > 5 and x < 10","x > 3 or x > 100","not x == 5"],ans:1,why:R("x > 3 верно, а для or достаточно одного верного условия.","x > 3 туура, ал эми or үчүн бир туура шарт жетиштүү.")},
+  {type:"num",q:R("Что выведет программа?\nx = 15\nif x > 20:\n    print(1)\nelif x > 10:\n    print(2)\nelif x > 5:\n    print(3)\nelse:\n    print(4)","Программа эмне чыгарат?\nx = 15\nif x > 20:\n    print(1)\nelif x > 10:\n    print(2)\nelif x > 5:\n    print(3)\nelse:\n    print(4)"),ans:2,why:R("Первое истинное условие — x > 10; дальше не проверяется.","Биринчи чын шарт — x > 10; андан ары текшерилбейт.")}],
+ task:{q:R("Вводятся три числа (каждое на своей строке). Выведите наибольшее из них, не используя функцию max.","Үч сан киргизилет (ар бири өз сабында). max функциясын колдонбой, алардын эң чоңун чыгарыңыз."),
+  start:"a = int(input())\nb = int(input())\nc = int(input())\n",not:["max"],tests:[{in:"3\n9\n4",out:"9"},{in:"-1\n-5\n-2",out:"-1"},{in:"5\n5\n2",out:"5"},{in:"1\n2\n8",out:"8"}],hint:R("if a >= b and a >= c:\n    print(a)\nelif b >= c:\n    print(b)\nelse:\n    print(c)","if a >= b and a >= c:\n    print(a)\nelif b >= c:\n    print(b)\nelse:\n    print(c)")}},
+
+{id:"for",icon:"🔁",c:"#1098ad",title:R("Цикл for и range","for цикли жана range"),
+ lead:R("Представьте, что нужно написать «Салам» сто раз. Сто одинаковых строк кода — скучно и долго. Цикл говорит компьютеру: «повтори это нужное число раз».",
+  "«Салам» деп жүз жолу жазуу керек дейли. Жүз бирдей код сабы — кызыксыз жана узак. Цикл компьютерге: «муну керектүү санда кайтала» дейт."),
+ sec:[
+  {h:R("Повторение","Кайталоо"),t:R(`<p><code>for i in range(5):</code> повторяет блок с отступом 5 раз. Переменная <code>i</code> — счётчик: она по очереди принимает значения 0, 1, 2, 3, 4.</p>`,
+   `<p><code>for i in range(5):</code> абзацтагы блокту 5 жолу кайталайт. <code>i</code> өзгөрмөсү — эсептегич: ал кезеги менен 0, 1, 2, 3, 4 маанилерин алат.</p>`),
+   code:R(`for i in range(5):
+    print("Повтор номер", i)
+print("Готово!")`,`for i in range(5):
+    print("Кайталоо номери", i)
+print("Даяр!")`)},
+  {h:R("range(начало, конец, шаг)","range(башы, аягы, кадамы)"),t:R(`<p><code>range(1, 11)</code> — числа от 1 до 10: конец <b>не включается</b>. Третий параметр — шаг: <code>range(0, 20, 5)</code> → 0, 5, 10, 15. Шаг может быть отрицательным: <code>range(10, 0, -2)</code> → 10, 8, 6, 4, 2. Функция <code>list()</code> показывает все числа сразу.</p>`,
+   `<p><code>range(1, 11)</code> — 1ден 10го чейинки сандар: аягы <b>кошулбайт</b>. Үчүнчү параметр — кадам: <code>range(0, 20, 5)</code> → 0, 5, 10, 15. Кадам терс да болушу мүмкүн: <code>range(10, 0, -2)</code> → 10, 8, 6, 4, 2. <code>list()</code> функциясы бардык сандарды бирден көрсөтөт.</p>`),
+   code:`print(list(range(1, 11)))
+print(list(range(0, 20, 5)))
+print(list(range(10, 0, -2)))`},
+  {h:R("Накопление суммы","Сумманы топтоо"),t:R(`<p>Частый приём: перед циклом заводим переменную-копилку <code>s = 0</code>, а в цикле добавляем к ней очередное число. Так можно сложить все числа от 1 до n.</p>`,
+   `<p>Көп колдонулган ыкма: циклдин алдында <code>s = 0</code> топтогуч-өзгөрмөсүн түзүп, циклде ага кезектеги санды кошобуз. Ушинтип 1ден n'ге чейинки бардык сандарды кошууга болот.</p>`),
+   code:R(`n = int(input())
+s = 0
+for i in range(1, n + 1):
+    s += i
+print("Сумма от 1 до", n, "=", s)`,`n = int(input())
+s = 0
+for i in range(1, n + 1):
+    s += i
+print("1ден", n, "чейинки сумма =", s)`),inp:"100"},
+  {h:R("Перебор букв строки","Саптын тамгаларын иргөө"),t:R(`<p>Цикл <code>for</code> умеет перебирать не только числа, но и буквы строки, элементы списка.</p>`,`<p><code>for</code> цикли сандарды гана эмес, саптын тамгаларын, тизменин элементтерин да иргей алат.</p>`),
+   code:`for ch in "Ала-Тоо":
+    print(ch, end=" ")
+print()
+for city in ["Ош", "Нарын", "Талас"]:
+    print(city.upper())`}],
+ remember:R(`<ul><li><code>for i in range(n):</code> — n повторов, i от 0 до n − 1.</li><li><code>range(a, b, k)</code>: от a до b (не включая b) с шагом k.</li><li>Сумма в цикле: <code>s = 0</code> до цикла, <code>s += ...</code> внутри.</li></ul>`,
+  `<ul><li><code>for i in range(n):</code> — n кайталоо, i 0дөн n − 1ге чейин.</li><li><code>range(a, b, k)</code>: a'дан b'ге чейин (b кошулбайт) k кадам менен.</li><li>Циклдеги сумма: <code>s = 0</code> циклге чейин, <code>s += ...</code> ичинде.</li></ul>`),
+ quiz:[
+  {type:"num",q:R("Сколько раз выполнится print?\nfor i in range(3, 10):\n    print(i)","print канча жолу аткарылат?\nfor i in range(3, 10):\n    print(i)"),ans:7,why:R("Числа 3, 4, …, 9 — всего 7.","3, 4, …, 9 сандары — баары 7.")},
+  {type:"str",q:R("Что выведет программа?\nprint(list(range(2, 12, 3)))","Программа эмне чыгарат?\nprint(list(range(2, 12, 3)))"),ans:["[2, 5, 8, 11]"],why:R("2, 5, 8, 11; 14 уже больше 12.","2, 5, 8, 11; 14 12ден чоң.")},
+  {type:"choice",q:R("Какой range даёт числа 10, 9, 8, …, 1?","Кайсы range 10, 9, 8, …, 1 сандарын берет?"),opts:["range(10, 1)","range(10, 0, -1)","range(1, 10, -1)"],ans:1,why:R("Шаг −1, а конец 0 не включается.","Кадам −1, ал эми аягы 0 кошулбайт.")}],
+ task:{q:R("Вводится число n. Выведите таблицу умножения для n от 1 до 10 в виде строк n * i = результат.","n саны киргизилет. n үчүн 1ден 10го чейинки көбөйтүү таблицасын n * i = жыйынтык түрүндөгү саптар менен чыгарыңыз."),
+  start:"n = int(input())\n",must:["for"],tests:[{in:"3",out:[...Array(10)].map((_,i)=>`3 * ${i+1} = ${3*(i+1)}`).join("\n")},{in:"7",out:[...Array(10)].map((_,i)=>`7 * ${i+1} = ${7*(i+1)}`).join("\n")}],hint:R("for i in range(1, 11):\n    print(n, \"*\", i, \"=\", n * i)","for i in range(1, 11):\n    print(n, \"*\", i, \"=\", n * i)")}},
+
+{id:"while",icon:"🔂",c:"#0b7285",title:R("Цикл while","while цикли"),
+ lead:R("Иногда заранее неизвестно, сколько раз нужно повторить действие: копить деньги, пока не хватит на покупку; спрашивать пароль, пока не введут правильный. Для таких задач есть цикл while — «пока».",
+  "Кээде аракетти канча жолу кайталоо керек экени алдын ала белгисиз: сатып алууга жеткенге чейин акча топтоо; туура сыр сөз киргизилгенге чейин сурай берүү. Мындай маселелер үчүн while — «азырынча» цикли бар."),
+ sec:[
+  {h:R("Пока условие истинно","Шарт чын болгон сайын"),t:R(`<p><code>while условие:</code> проверяет условие перед каждым повтором. Если оно истинно — выполняет блок и проверяет снова. Как только условие стало ложным, цикл заканчивается. Внутри цикла что-то должно меняться, иначе он никогда не остановится.</p>`,
+   `<p><code>while шарт:</code> ар бир кайталоонун алдында шартты текшерет. Чын болсо — блокту аткарып, кайра текшерет. Шарт жалган болоор замат цикл бүтөт. Циклдин ичинде бир нерсе өзгөрүшү керек, антпесе ал эч качан токтобойт.</p>`),
+   code:R(`n = 5
+while n > 0:
+    print(n)
+    n -= 1
+print("Старт!")`,`n = 5
+while n > 0:
+    print(n)
+    n -= 1
+print("Старт!")`)},
+  {h:R("Когда while, а когда for","Качан while, качан for"),t:R(`<p>Если число повторов известно — удобнее <code>for</code>. Если известно только условие остановки — <code>while</code>. Пример: каждый день кладём в копилку 70 сомов. Через сколько дней накопим на мяч за 1200 сомов?</p>`,
+   `<p>Кайталоолордун саны белгилүү болсо — <code>for</code> ыңгайлуу. Токтоо шарты гана белгилүү болсо — <code>while</code>. Мисал: күн сайын кумурага 70 сом салабыз. Канча күндөн кийин 1200 сомдук топко жетет?</p>`),
+   code:R(`money = 0
+days = 0
+while money < 1200:
+    money += 70
+    days += 1
+print("Дней:", days, "накоплено:", money)`,`money = 0
+days = 0
+while money < 1200:
+    money += 70
+    days += 1
+print("Күн:", days, "топтолду:", money)`)},
+  {h:R("Выход из цикла: break","Циклден чыгуу: break"),t:R(`<p><code>while True:</code> — цикл «навсегда», а команда <code>break</code> прерывает его. Программа ниже складывает числа, пока не встретит 0. В тренажёре зависшая программа останавливается через несколько секунд.</p>`,
+   `<p><code>while True:</code> — «түбөлүк» цикл, ал эми <code>break</code> буйругу аны үзөт. Төмөнкү программа 0 кезиккенге чейин сандарды кошот. Машыктыргычта токтоп калган программа бир нече секунддан кийин токтотулат.</p>`),
+   code:R(`s = 0
+while True:
+    x = int(input())
+    if x == 0:
+        break
+    s += x
+print("Сумма:", s)`,`s = 0
+while True:
+    x = int(input())
+    if x == 0:
+        break
+    s += x
+print("Сумма:", s)`),inp:"5\n12\n3\n0"},
+  {h:R("Цифры числа","Сандын цифралары"),t:R(`<p>С <code>while</code> удобно «откусывать» от числа по одной цифре, пока не останется 0.</p>`,`<p><code>while</code> менен сандан бир-бирден цифра «тиштеп» алуу ыңгайлуу — 0 калганга чейин.</p>`),
+   code:R(`n = 2026
+total = 0
+while n > 0:
+    total += n % 10
+    n //= 10
+print("Сумма цифр:", total)`,`n = 2026
+total = 0
+while n > 0:
+    total += n % 10
+    n //= 10
+print("Цифралардын суммасы:", total)`)}],
+ remember:R(`<ul><li><code>while условие:</code> — повторять, пока условие истинно.</li><li>В теле цикла условие должно когда-то стать ложным.</li><li><code>break</code> — немедленный выход из цикла.</li></ul>`,
+  `<ul><li><code>while шарт:</code> — шарт чын болгон сайын кайталоо.</li><li>Циклдин денесинде шарт качандыр бир кезде жалган болушу керек.</li><li><code>break</code> — циклден дароо чыгуу.</li></ul>`),
+ quiz:[
+  {type:"num",q:R("Что выведет программа?\nn = 1\nwhile n < 100:\n    n *= 2\nprint(n)","Программа эмне чыгарат?\nn = 1\nwhile n < 100:\n    n *= 2\nprint(n)"),ans:128,why:R("1, 2, 4, …, 64, 128 — на 128 условие стало ложным.","1, 2, 4, …, 64, 128 — 128де шарт жалган болду.")},
+  {type:"num",q:R("Сколько раз выполнится тело цикла?\nk = 10\nwhile k > 0:\n    k -= 3","Циклдин денеси канча жолу аткарылат?\nk = 10\nwhile k > 0:\n    k -= 3"),ans:4,why:R("k = 10, 7, 4, 1 → 4 раза; затем k = −2.","k = 10, 7, 4, 1 → 4 жолу; андан кийин k = −2.")},
+  {type:"choice",q:R("Что делает команда break?","break буйругу эмне кылат?"),opts:[R("Останавливает всю программу с ошибкой","Бүт программаны ката менен токтотот"),R("Сразу выходит из цикла","Циклден дароо чыгат"),R("Пропускает одну строку","Бир сапты өткөрүп жиберет")],ans:1,why:R("Программа продолжается со строки после цикла.","Программа циклден кийинки саптан уланат.")}],
+ task:{q:R("Вводится натуральное число. С помощью while посчитайте, сколько в нём цифр.","Натуралдык сан киргизилет. while жардамы менен анда канча цифра бар экенин эсептеңиз."),
+  start:"n = int(input())\n",must:["while"],tests:[{in:"2026",out:"4"},{in:"7",out:"1"},{in:"1000000",out:"7"}],hint:R("count = 0\nwhile n > 0:\n    n //= 10\n    count += 1","count = 0\nwhile n > 0:\n    n //= 10\n    count += 1")}},
+
+{id:"nested",icon:"🧩",c:"#d6336c",title:R("Вложенные циклы","Уяча циклдер"),
+ lead:R("Вспомните часы: пока часовая стрелка делает один шаг, минутная проходит полный круг. Так работает цикл внутри цикла: внутренний выполняется полностью при каждом шаге внешнего.",
+  "Саатты эстеңиз: саат жебеси бир кадам шилтегенче, мүнөт жебеси толук айланат. Цикл ичиндеги цикл ушундай иштейт: тышкысынын ар бир кадамында ичкиси толук аткарылат."),
+ sec:[
+  {h:R("Цикл в цикле","Цикл ичинде цикл"),t:R(`<p>Внешний цикл повторяется 3 раза, внутренний — 4 раза при <b>каждом</b> шаге внешнего. Всего 3 · 4 = 12 строк.</p>`,`<p>Тышкы цикл 3 жолу, ичкиси тышкысынын <b>ар бир</b> кадамында 4 жолу кайталанат. Баары 3 · 4 = 12 сап.</p>`),
+   code:`for i in range(3):
+    for j in range(4):
+        print(i, j, end="   ")
+    print()`},
+  {h:R("Прямоугольник из символов","Символдордон тик бурчтук"),t:R(`<p>Параметр <code>end=""</code> не даёт <code>print</code> перейти на новую строку, поэтому символы встают рядом. Пустой <code>print()</code> после внутреннего цикла завершает ряд.</p>`,
+   `<p><code>end=""</code> параметри <code>print</code>'ке жаңы сапка өтүүгө жол бербейт, ошондуктан символдор катар турат. Ички циклден кийинки бош <code>print()</code> катарды бүтүрөт.</p>`),
+   code:`h = 3
+w = 6
+for i in range(h):
+    for j in range(w):
+        print("#", end="")
+    print()`},
+  {h:R("Таблица умножения","Көбөйтүү таблицасы"),t:R(`<p>Символ <code>"\\t"</code> — табуляция: он выравнивает числа по столбцам.</p>`,`<p><code>"\\t"</code> символу — табуляция: ал сандарды мамычалар боюнча тегиздейт.</p>`),
+   code:`for i in range(1, 6):
+    for j in range(1, 6):
+        print(i * j, end="\\t")
+    print()`},
+  {h:R("Внутренний зависит от внешнего","Ичкиси тышкысынан көз каранды"),t:R(`<p>Если граница внутреннего цикла зависит от счётчика внешнего, получаются «лесенки» и треугольники.</p>`,`<p>Ички циклдин чеги тышкы циклдин эсептегичинен көз каранды болсо, «тепкичтер» жана үч бурчтуктар чыгат.</p>`),
+   code:`for i in range(1, 6):
+    for j in range(i):
+        print("*", end="")
+    print()`}],
+ remember:R(`<ul><li>Внутренний цикл выполняется целиком при каждом шаге внешнего.</li><li>Число повторов внутреннего блока = произведение повторов циклов.</li><li><code>print(..., end="")</code> — без перехода на новую строку, <code>print()</code> — переход.</li></ul>`,
+  `<ul><li>Ички цикл тышкысынын ар бир кадамында толугу менен аткарылат.</li><li>Ички блоктун кайталанышы = циклдердин кайталанышынын көбөйтүндүсү.</li><li><code>print(..., end="")</code> — жаңы сапка өтпөйт, <code>print()</code> — өтөт.</li></ul>`),
+ quiz:[
+  {type:"num",q:R("Сколько раз выполнится print?\nfor a in range(5):\n    for b in range(3):\n        print(a, b)","print канча жолу аткарылат?\nfor a in range(5):\n    for b in range(3):\n        print(a, b)"),ans:15,why:"5 · 3 = 15."},
+  {type:"num",q:R("Что выведет программа?\ncount = 0\nfor i in range(4):\n    for j in range(i):\n        count += 1\nprint(count)","Программа эмне чыгарат?\ncount = 0\nfor i in range(4):\n    for j in range(i):\n        count += 1\nprint(count)"),ans:6,why:"0 + 1 + 2 + 3 = 6."},
+  {type:"choice",q:R("Что делает print() без аргументов?","Аргументсиз print() эмне кылат?"),opts:[R("Ничего","Эч нерсе"),R("Переходит на новую строку","Жаңы сапка өтөт"),R("Выдаёт ошибку","Ката берет")],ans:1,why:R("Выводит пустую строку, то есть завершает текущую.","Бош сап чыгарат, башкача айтканда учурдагы сапты бүтүрөт.")}],
+ task:{q:R("Вводится n. Нарисуйте шахматную доску n × n из символов # и . (первая клетка — #).","n киргизилет. # жана . символдорунан n × n шахмат тактасын тартыңыз (биринчи көзөнөк — #)."),
+  start:"n = int(input())\n",tests:[{in:"3",out:"#.#\n.#.\n#.#"},{in:"4",out:"#.#.\n.#.#\n#.#.\n.#.#"},{in:"1",out:"#"}],hint:R("Клетка (i, j) тёмная, если (i + j) % 2 == 0.","(i, j) көзөнөгү (i + j) % 2 == 0 болсо, кара.")}},
+
+{id:"str",icon:"🔡",c:"#9c36b5",title:R("Строки","Саптар"),
+ lead:R("Строка — это цепочка символов, как бусины на нитке. У каждой бусины есть номер, поэтому можно достать любую букву, кусок слова или перевернуть слово задом наперёд.",
+  "Сап — жипке тизилген мончоктор сыяктуу символдордун чынжыры. Ар бир мончоктун номери бар, ошондуктан каалаган тамганы, сөздүн бөлүгүн алууга же сөздү тескери айлантууга болот."),
+ sec:[
+  {h:R("Индексы","Индекстер"),t:R(`<p>Символы нумеруются <b>с нуля</b>: <code>s[0]</code> — первый. Отрицательные индексы считают с конца: <code>s[-1]</code> — последний символ. <code>len(s)</code> — длина строки.</p>`,
+   `<p>Символдор <b>нөлдөн</b> баштап номерленет: <code>s[0]</code> — биринчиси. Терс индекстер аягынан саналат: <code>s[-1]</code> — акыркы символ. <code>len(s)</code> — саптын узундугу.</p>`),
+   code:`s = "Нарын"
+print(s[0], s[1], s[-1])
+print(len(s))`},
+  {h:R("Срезы","Кесиндилер"),t:R(`<p><code>s[a:b]</code> — кусок с индекса a до b (не включая b). Можно не писать начало или конец. <code>s[::-1]</code> — строка задом наперёд, <code>s[::2]</code> — каждый второй символ.</p>`,
+   `<p><code>s[a:b]</code> — a индексинен b'ге чейинки бөлүк (b кошулбайт). Башын же аягын жазбаса да болот. <code>s[::-1]</code> — тескери сап, <code>s[::2]</code> — ар бир экинчи символ.</p>`),
+   code:`s = "информатика"
+print(s[2:7])
+print(s[:4], s[7:])
+print(s[::-1])
+print(s[::2])`},
+  {h:R("Методы строк","Саптардын методдору"),t:R(`<p><code>upper()</code> и <code>lower()</code> — большие и маленькие буквы, <code>replace(a, b)</code> — замена, <code>count(x)</code> — сколько раз встречается, <code>find(x)</code> — где впервые встречается (−1, если нет), <code>split()</code> — разбить на части, <code>strip()</code> — убрать пробелы по краям. Оператор <code>in</code> проверяет, есть ли подстрока.</p>`,
+   `<p><code>upper()</code> жана <code>lower()</code> — чоң жана кичине тамгалар, <code>replace(a, b)</code> — алмаштыруу, <code>count(x)</code> — канча жолу кездешет, <code>find(x)</code> — биринчи жолу кайда кездешет (жок болсо −1), <code>split()</code> — бөлүктөргө бөлүү, <code>strip()</code> — четтеги боштуктарды алып салуу. <code>in</code> оператору ички сап бар-жогун текшерет.</p>`),
+   code:`t = "Ош, Бишкек, Нарын"
+print(t.upper())
+print(t.replace(", ", " | "))
+print(t.count("к"), t.find("Нарын"))
+print(t.split(", "))
+print("Бишкек" in t)`},
+  {h:R("Строки не меняются","Саптар өзгөрбөйт"),t:R(`<p>Букву в строке заменить нельзя (<code>s[0] = "X"</code> — ошибка). Вместо этого собирают новую строку из кусков. Так же строку «накапливают» в цикле.</p>`,
+   `<p>Саптагы тамганы алмаштырууга болбойт (<code>s[0] = "X"</code> — ката). Анын ордуна бөлүктөрдөн жаңы сап курашат. Сапты циклде да ушинтип «топтошот».</p>`),
+   code:R(`s = "кот"
+s = "К" + s[1:]
+print(s)
+word = "Python"
+res = ""
+for ch in word:
+    res = ch + res
+print(res)`,`s = "кол"
+s = "К" + s[1:]
+print(s)
+word = "Python"
+res = ""
+for ch in word:
+    res = ch + res
+print(res)`)}],
+ remember:R(`<ul><li>Индексы с 0; <code>s[-1]</code> — последний символ; <code>len(s)</code> — длина.</li><li><code>s[a:b]</code> — срез без b; <code>s[::-1]</code> — разворот.</li><li><code>upper lower replace count find split strip</code>; <code>x in s</code>.</li><li>Строку нельзя изменить — только создать новую.</li></ul>`,
+  `<ul><li>Индекстер 0дөн; <code>s[-1]</code> — акыркы символ; <code>len(s)</code> — узундук.</li><li><code>s[a:b]</code> — b'сиз кесинди; <code>s[::-1]</code> — тескери айлантуу.</li><li><code>upper lower replace count find split strip</code>; <code>x in s</code>.</li><li>Сапты өзгөртүүгө болбойт — жаңысын гана түзөбүз.</li></ul>`),
+ quiz:[
+  {type:"str",q:R("Что выведет программа?\ns = \"программа\"\nprint(s[3])","Программа эмне чыгарат?\ns = \"программа\"\nprint(s[3])"),ans:["г"],why:R("п — 0, р — 1, о — 2, г — 3.","п — 0, р — 1, о — 2, г — 3.")},
+  {type:"str",q:R("Что выведет программа?\nprint(\"Ала-Тоо\"[::-1])","Программа эмне чыгарат?\nprint(\"Ала-Тоо\"[::-1])"),ans:["ооТ-алА"],why:R("Срез с шагом −1 переворачивает строку.","−1 кадамдуу кесинди сапты тескери айлантат.")},
+  {type:"num",q:R("Что выведет программа?\nprint(len(\"Ысык-Көл\"))","Программа эмне чыгарат?\nprint(len(\"Ысык-Көл\"))"),ans:8,why:R("Дефис — тоже символ.","Дефис да символ.")}],
+ task:{q:R("Вводится слово. Выведите YES, если оно читается одинаково слева направо и справа налево (без учёта больших и маленьких букв), иначе NO.","Сөз киргизилет. Ал солдон оңго жана оңдон солго бирдей окулса (чоң-кичине тамгаларды эске албай), YES, антпесе NO чыгарыңыз."),
+  start:"w = input()\n",tests:[{in:"Казак",out:"YES"},{in:"Тоо",out:"NO"},{in:"Анна",out:"YES"},{in:"дом",out:"NO"}],hint:R("w = w.lower(), затем сравните w и w[::-1].","w = w.lower(), анан w жана w[::-1] салыштырыңыз.")}},
+
+{id:"list",icon:"📋",c:"#f08c00",title:R("Списки","Тизмелер"),
+ lead:R("Если нужно хранить оценки всего класса или температуру за каждый день месяца, заводить отдельную переменную на каждое значение неудобно. Список хранит много значений под одним именем — как вагоны одного поезда.",
+  "Бүт класстын бааларын же айдын ар бир күнүндөгү температураны сактоо керек болсо, ар бир маани үчүн өзүнчө өзгөрмө түзүү ыңгайсыз. Тизме көп маанини бир ат менен сактайт — бир поезддин вагондору сыяктуу."),
+ sec:[
+  {h:R("Создание и индексы","Түзүү жана индекстер"),t:R(`<p>Список пишут в квадратных скобках через запятую. Индексы — как у строк, с нуля. Но в отличие от строки, элемент списка <b>можно изменить</b>.</p>`,
+   `<p>Тизме төрт бурчтуу кашаага үтүр менен жазылат. Индекстер саптардагыдай, нөлдөн. Бирок саптан айырмаланып, тизменин элементин <b>өзгөртүүгө болот</b>.</p>`),
+   code:`marks = [5, 4, 5, 3]
+print(marks[0], marks[-1], len(marks))
+marks[3] = 4
+print(marks)`},
+  {h:R("Добавление, удаление, сортировка","Кошуу, өчүрүү, иреттөө"),t:R(`<p><code>append(x)</code> — добавить в конец, <code>insert(i, x)</code> — вставить на место i, <code>remove(x)</code> — удалить значение, <code>pop()</code> — убрать последний и вернуть его, <code>sort()</code> — упорядочить, <code>reverse()</code> — развернуть. Функции <code>sum</code>, <code>max</code>, <code>min</code> работают со списком целиком.</p>`,
+   `<p><code>append(x)</code> — аягына кошуу, <code>insert(i, x)</code> — i ордуна коюу, <code>remove(x)</code> — маанини өчүрүү, <code>pop()</code> — акыркысын алып, аны кайтаруу, <code>sort()</code> — иреттөө, <code>reverse()</code> — тескери айлантуу. <code>sum</code>, <code>max</code>, <code>min</code> функциялары тизме менен толугу менен иштейт.</p>`),
+   code:`nums = [7, 2, 9]
+nums.append(4)
+nums.insert(0, 10)
+print(nums)
+nums.remove(9)
+last = nums.pop()
+print(nums, last)
+nums.sort()
+print(nums, sum(nums), max(nums), min(nums))`},
+  {h:R("Обработка списка в цикле","Тизмени циклде иштетүү"),t:R(`<p>Температура в Нарыне за неделю. Найдём среднюю и посчитаем морозные дни.</p>`,`<p>Нарындагы бир жумалык температура. Орточосун табабыз жана суук күндөрдү эсептейбиз.</p>`),
+   code:R(`temps = [-12, -8, 1, 3, -2, -15, 0]
+avg = sum(temps) / len(temps)
+cold = 0
+for t in temps:
+    if t < 0:
+        cold += 1
+print("Средняя:", round(avg, 1))
+print("Морозных дней:", cold)`,`temps = [-12, -8, 1, 3, -2, -15, 0]
+avg = sum(temps) / len(temps)
+cold = 0
+for t in temps:
+    if t < 0:
+        cold += 1
+print("Орточо:", round(avg, 1))
+print("Суук күндөр:", cold)`)},
+  {h:R("Срезы и генераторы списков","Кесиндилер жана тизме генераторлору"),t:R(`<p>Срезы работают так же, как у строк. Список можно прочитать из одной строки ввода. Короткая запись <code>[x * x for x in range(1, 6)]</code> создаёт список «на лету».</p>`,
+   `<p>Кесиндилер саптардагыдай эле иштейт. Тизмени бир киргизүү сабынан окууга болот. Кыска жазуу <code>[x * x for x in range(1, 6)]</code> тизмени «учурунда» түзөт.</p>`),
+   code:`nums = list(map(int, input().split()))
+print(nums[:3], nums[::-1])
+squares = [x * x for x in range(1, 6)]
+print(squares)
+evens = [x for x in nums if x % 2 == 0]
+print(evens)`,inp:"4 7 10 3 8 6"}],
+ remember:R(`<ul><li><code>a = [1, 2, 3]</code>; индексы с 0; элементы можно менять.</li><li><code>append insert remove pop sort reverse</code>; <code>len sum max min</code>.</li><li>Ввод списка: <code>list(map(int, input().split()))</code>.</li><li><code>[выражение for x in ... if условие]</code>.</li></ul>`,
+  `<ul><li><code>a = [1, 2, 3]</code>; индекстер 0дөн; элементтерди өзгөртүүгө болот.</li><li><code>append insert remove pop sort reverse</code>; <code>len sum max min</code>.</li><li>Тизмени киргизүү: <code>list(map(int, input().split()))</code>.</li><li><code>[туюнтма for x in ... if шарт]</code>.</li></ul>`),
+ quiz:[
+  {type:"str",q:R("Что выведет программа?\na = [3, 1, 2]\na.append(5)\na.sort()\nprint(a)","Программа эмне чыгарат?\na = [3, 1, 2]\na.append(5)\na.sort()\nprint(a)"),ans:["[1, 2, 3, 5]"],why:R("Добавили 5, затем упорядочили.","5ти коштук, анан иреттедик.")},
+  {type:"num",q:R("Что выведет программа?\na = [10, 20, 30, 40, 50]\nprint(a[1] + a[-1])","Программа эмне чыгарат?\na = [10, 20, 30, 40, 50]\nprint(a[1] + a[-1])"),ans:70,why:"20 + 50 = 70."},
+  {type:"str",q:R("Что выведет программа?\nprint([1, 2, 3, 4, 5, 6][::2])","Программа эмне чыгарат?\nprint([1, 2, 3, 4, 5, 6][::2])"),ans:["[1, 3, 5]"],why:R("Каждый второй элемент, начиная с первого.","Биринчиден баштап ар бир экинчи элемент.")}],
+ task:{q:R("В одной строке через пробел вводятся числа. Выведите, сколько из них больше среднего арифметического.","Бир сапта боштук аркылуу сандар киргизилет. Алардын канчасы орточо арифметикалыктан чоң экенин чыгарыңыз."),
+  start:"nums = list(map(int, input().split()))\n",tests:[{in:"1 2 3 4 10",out:"1"},{in:"5 5 5",out:"0"},{in:"2 8 4 6",out:"2"}],hint:R("avg = sum(nums) / len(nums), затем посчитайте в цикле числа x > avg.","avg = sum(nums) / len(nums), анан циклде x > avg сандарын эсептеңиз.")}},
+
+{id:"dict",icon:"🗂️",c:"#3b5bdb",title:R("Кортежи и словари","Кортеждер жана сөздүктөр"),
+ lead:R("В обычном словаре по слову находят его перевод. Словарь Python устроен так же: по ключу быстро находится значение. А кортеж — это «запечатанный» список, который нельзя изменить.",
+  "Кадимки сөздүктө сөз боюнча анын котормосун табышат. Python'дун сөздүгү да ушундай: ачкыч боюнча маани тез табылат. Ал эми кортеж — өзгөртүүгө болбой турган «мөөрлөнгөн» тизме."),
+ sec:[
+  {h:R("Кортеж (tuple)","Кортеж (tuple)"),t:R(`<p>Кортеж пишут в круглых скобках. Его элементы нельзя менять — это защищает данные от случайной порчи (координаты, дата, цвет RGB). Кортеж удобно «распаковывать» в несколько переменных.</p>`,
+   `<p>Кортеж тегерек кашаага жазылат. Анын элементтерин өзгөртүүгө болбойт — бул маалыматтарды кокустан бузулуудан коргойт (координаталар, дата, RGB түсү). Кортежди бир нече өзгөрмөгө «ачуу» ыңгайлуу.</p>`),
+   code:`point = (3, 5)
+x, y = point
+print(x, y, len(point))
+color = (255, 128, 0)
+print("R =", color[0])
+point[0] = 10`},
+  {h:R("Словарь (dict)","Сөздүк (dict)"),t:R(`<p>Словарь хранит пары <b>ключ: значение</b> в фигурных скобках. Значение берут по ключу: <code>d[ключ]</code>. Добавить пару — просто присвоить. <code>get(ключ, запасное)</code> не выдаёт ошибку, если ключа нет. Пример — высоты вершин Кыргызстана в метрах.</p>`,
+   `<p>Сөздүк фигуралык кашаада <b>ачкыч: маани</b> жуптарын сактайт. Маани ачкыч боюнча алынат: <code>d[ачкыч]</code>. Жуп кошуу үчүн жөн гана ыйгаруу жетиштүү. <code>get(ачкыч, запас)</code> ачкыч жок болсо ката бербейт. Мисал — Кыргызстандын чокуларынын бийиктиги, метр менен.</p>`),
+   code:R(`peaks = {"Жеңиш": 7439, "Ленин": 7134}
+print(peaks["Жеңиш"])
+peaks["Хан-Теңир"] = 7010
+print(len(peaks), "Ленин" in peaks)
+print(peaks.get("Эверест", "нет данных"))`,`peaks = {"Жеңиш": 7439, "Ленин": 7134}
+print(peaks["Жеңиш"])
+peaks["Хан-Теңир"] = 7010
+print(len(peaks), "Ленин" in peaks)
+print(peaks.get("Эверест", "маалымат жок"))`)},
+  {h:R("Перебор словаря","Сөздүктү иргөө"),t:R(`<p><code>items()</code> даёт пары, <code>keys()</code> — ключи, <code>values()</code> — значения.</p>`,`<p><code>items()</code> жуптарды, <code>keys()</code> — ачкычтарды, <code>values()</code> — маанилерди берет.</p>`),
+   code:R(`prices = {"нан": 30, "сүт": 75, "алма": 120}
+for name, p in prices.items():
+    print(name, "—", p, "сом")
+print("Всего:", sum(prices.values()))`,`prices = {"нан": 30, "сүт": 75, "алма": 120}
+for name, p in prices.items():
+    print(name, "—", p, "сом")
+print("Баары:", sum(prices.values()))`)},
+  {h:R("Подсчёт частоты","Жыштыкты эсептөө"),t:R(`<p>Классическая задача: сколько раз встречается каждая буква. Ключ — буква, значение — счётчик.</p>`,`<p>Классикалык маселе: ар бир тамга канча жолу кездешет. Ачкыч — тамга, маани — эсептегич.</p>`),
+   code:`word = "абракадабра"
+freq = {}
+for ch in word:
+    freq[ch] = freq.get(ch, 0) + 1
+print(freq)`}],
+ remember:R(`<ul><li>Кортеж <code>(1, 2)</code> — неизменяемый; распаковка <code>a, b = t</code>.</li><li>Словарь <code>{ключ: значение}</code>; <code>d[k]</code>, <code>d[k] = v</code>, <code>d.get(k, 0)</code>, <code>k in d</code>.</li><li><code>items() keys() values()</code>.</li></ul>`,
+  `<ul><li>Кортеж <code>(1, 2)</code> — өзгөрбөйт; ачуу <code>a, b = t</code>.</li><li>Сөздүк <code>{ачкыч: маани}</code>; <code>d[k]</code>, <code>d[k] = v</code>, <code>d.get(k, 0)</code>, <code>k in d</code>.</li><li><code>items() keys() values()</code>.</li></ul>`),
+ quiz:[
+  {type:"num",q:R("Что выведет программа?\nd = {\"a\": 1, \"b\": 2}\nd[\"c\"] = 3\nd[\"a\"] = 10\nprint(sum(d.values()))","Программа эмне чыгарат?\nd = {\"a\": 1, \"b\": 2}\nd[\"c\"] = 3\nd[\"a\"] = 10\nprint(sum(d.values()))"),ans:15,why:"10 + 2 + 3 = 15."},
+  {type:"choice",q:R("Что нельзя сделать с кортежем?","Кортеж менен эмне кылууга болбойт?"),opts:[R("Узнать длину","Узундугун билүү"),R("Взять элемент по индексу","Индекс боюнча элементти алуу"),R("Изменить элемент","Элементти өзгөртүү")],ans:2,why:R("Кортеж неизменяемый.","Кортеж өзгөрбөйт.")},
+  {type:"num",q:R("Что выведет программа?\nd = {\"one\": 1, \"two\": 2}\nprint(d.get(\"three\", 0))","Программа эмне чыгарат?\nd = {\"one\": 1, \"two\": 2}\nprint(d.get(\"three\", 0))"),ans:0,why:R("Ключа нет — возвращается запасное значение.","Ачкыч жок — запас маани кайтат.")}],
+ task:{q:R("Вводится слово из маленьких букв. Выведите букву, которая встречается чаще всех. Если таких несколько — ту, что раньше появляется в слове.","Кичине тамгалардан турган сөз киргизилет. Баарынан көп кездешкен тамганы чыгарыңыз. Мындай тамгалар бир нече болсо — сөздө эртерээк кездешкенин."),
+  start:"w = input()\n",tests:[{in:"кыргызстан",out:"ы"},{in:"алмаз",out:"а"},{in:"мама",out:"м"},{in:"тоо",out:"о"}],hint:R("Посчитайте частоты в словаре, затем пройдите по буквам слова и запомните ту, у которой счётчик больше текущего лучшего.","Жыштыктарды сөздүккө эсептеп, анан сөздүн тамгаларын аралап, эсептегичи учурдагы эң жакшысынан чоңун эстеп калыңыз.")}},
+
+{id:"func",icon:"⚙️",c:"#495057",title:R("Функции","Функциялар"),
+ lead:R("Рецепт плова записывают один раз, а готовят по нему много раз. Функция — это «рецепт» в программе: кусок кода с именем, который можно вызывать снова и снова с разными исходными данными.",
+  "Палоонун рецебин бир жолу жазып, аны менен көп жолу бышырышат. Функция — программадагы «рецепт»: аты бар код бөлүгү, аны ар кандай баштапкы маалыматтар менен кайра-кайра чакырууга болот."),
+ sec:[
+  {h:R("Создание и вызов","Түзүү жана чакыруу"),t:R(`<p>Функцию создают словом <code>def</code>, после имени в скобках — <b>параметры</b>. Тело функции пишут с отступом. Функция выполняется только тогда, когда её <b>вызывают</b> по имени.</p>`,
+   `<p>Функция <code>def</code> сөзү менен түзүлөт, аттан кийин кашаада — <b>параметрлер</b>. Функциянын денеси абзац менен жазылат. Функция аты менен <b>чакырылганда</b> гана аткарылат.</p>`),
+   code:R(`def greet(name):
+    print("Салам,", name + "!")
+    print("Рады тебя видеть.")
+
+greet("Айгүл")
+greet("Тимур")`,`def greet(name):
+    print("Салам,", name + "!")
+    print("Сени көргөнүмө кубанычтамын.")
+
+greet("Айгүл")
+greet("Тимур")`)},
+  {h:R("Возврат значения: return","Маанини кайтаруу: return"),t:R(`<p><code>return</code> возвращает результат туда, откуда функцию вызвали. Его можно сохранить в переменную или использовать в выражении. <code>print</code> только показывает число на экране, а <code>return</code> отдаёт его программе.</p>`,
+   `<p><code>return</code> жыйынтыкты функция чакырылган жерге кайтарат. Аны өзгөрмөгө сактоого же туюнтмада колдонууга болот. <code>print</code> санды экранга көрсөтөт гана, ал эми <code>return</code> аны программага берет.</p>`),
+   code:R(`def area(a, b):
+    return a * b
+
+room = area(5, 4)
+hall = area(8, 6)
+print("Всего:", room + hall, "кв. м")`,`def area(a, b):
+    return a * b
+
+room = area(5, 4)
+hall = area(8, 6)
+print("Баары:", room + hall, "кв. м")`)},
+  {h:R("Параметры по умолчанию и несколько результатов","Демейки параметрлер жана бир нече жыйынтык"),t:R(`<p>Параметру можно задать значение по умолчанию. Функция может вернуть сразу несколько значений — они придут кортежем.</p>`,
+   `<p>Параметрге демейки маани берүүгө болот. Функция бир эле учурда бир нече маанини кайтара алат — алар кортеж болуп келет.</p>`),
+   code:`def power(x, n=2):
+    return x ** n
+
+def min_max(lst):
+    return min(lst), max(lst)
+
+print(power(5), power(2, 10))
+lo, hi = min_max([4, 9, 1, 7])
+print(lo, hi)`},
+  {h:R("Функция-проверка","Текшерүүчү функция"),t:R(`<p>Функции удобно использовать как «вопросы»: такая функция возвращает <code>True</code> или <code>False</code>. Переменные внутри функции — <b>локальные</b>: снаружи их не видно.</p>`,
+   `<p>Функцияларды «суроо» катары колдонуу ыңгайлуу: мындай функция <code>True</code> же <code>False</code> кайтарат. Функциянын ичиндеги өзгөрмөлөр — <b>локалдык</b>: сырттан көрүнбөйт.</p>`),
+   code:`def is_prime(n):
+    if n < 2:
+        return False
+    d = 2
+    while d * d <= n:
+        if n % d == 0:
+            return False
+        d += 1
+    return True
+
+print([k for k in range(1, 40) if is_prime(k)])`}],
+ remember:R(`<ul><li><code>def имя(параметры):</code> + тело с отступом.</li><li>Функция работает только при вызове: <code>имя(аргументы)</code>.</li><li><code>return</code> возвращает результат и завершает функцию; без него функция вернёт <code>None</code>.</li><li><code>def f(x, n=2)</code> — параметр по умолчанию.</li></ul>`,
+  `<ul><li><code>def ат(параметрлер):</code> + абзацтагы дене.</li><li>Функция чакырылганда гана иштейт: <code>ат(аргументтер)</code>.</li><li><code>return</code> жыйынтыкты кайтарып, функцияны бүтүрөт; ансыз функция <code>None</code> кайтарат.</li><li><code>def f(x, n=2)</code> — демейки параметр.</li></ul>`),
+ quiz:[
+  {type:"num",q:R("Что выведет программа?\ndef f(x):\n    return x * x + 1\nprint(f(f(1)))","Программа эмне чыгарат?\ndef f(x):\n    return x * x + 1\nprint(f(f(1)))"),ans:5,why:R("f(1) = 2, f(2) = 5.","f(1) = 2, f(2) = 5.")},
+  {type:"choice",q:R("Что вернёт функция, в которой нет return?","return жок функция эмне кайтарат?"),opts:["0",R("пустую строку","бош сап"),"None"],ans:2,why:R("None — «ничего».","None — «эч нерсе».")},
+  {type:"num",q:R("Что выведет программа?\ndef s(a, b=10):\n    return a + b\nprint(s(5))","Программа эмне чыгарат?\ndef s(a, b=10):\n    return a + b\nprint(s(5))"),ans:15,why:R("b берёт значение по умолчанию 10.","b демейки 10 маанисин алат.")}],
+ task:{q:R("Напишите функцию is_prime(n) с return и с её помощью выведите, сколько простых чисел от 1 до n включительно (n вводится).","return бар is_prime(n) функциясын жазып, анын жардамы менен 1ден n'ге чейин (n кошо) канча жөнөкөй сан бар экенин чыгарыңыз (n киргизилет)."),
+  start:"def is_prime(n):\n    # ...\n\nn = int(input())\n",must:["def","return"],tests:[{in:"10",out:"4"},{in:"2",out:"1"},{in:"30",out:"10"},{in:"1",out:"0"}],hint:R("Посмотрите пример is_prime в последнем разделе урока; затем count = 0 и цикл по k от 1 до n.","Сабактын акыркы бөлүмүндөгү is_prime мисалын караңыз; анан count = 0 жана k боюнча 1ден n'ге чейин цикл.")}},
+
+{id:"mod",icon:"🧰",c:"#5c940d",title:R("Модули: math и random","Модулдар: math жана random"),
+ lead:R("Не нужно изобретать всё самому. В Python есть «ящики с инструментами» — модули. Модуль math умеет извлекать корни и знает число π, модуль random бросает кубик и перемешивает списки.",
+  "Баарын өзүбүз ойлоп табуунун кереги жок. Python'до «шайман кутулары» — модулдар бар. math модулу тамыр чыгарат жана π санын билет, random модулу кубикти ыргытат жана тизмелерди аралаштырат."),
+ sec:[
+  {h:R("Подключение модуля","Модулду туташтыруу"),t:R(`<p><code>import math</code> подключает модуль, к его функциям обращаются через точку: <code>math.sqrt(16)</code>. Можно взять только нужное: <code>from math import sqrt, pi</code>.</p>`,
+   `<p><code>import math</code> модулду туташтырат, анын функцияларына чекит аркылуу кайрылабыз: <code>math.sqrt(16)</code>. Керектүүсүн гана алса да болот: <code>from math import sqrt, pi</code>.</p>`),
+   code:R(`import math
+print(math.sqrt(16), math.pi)
+print(math.ceil(4.1), math.floor(4.9))
+from math import sqrt
+r = 5
+print("Площадь круга:", round(math.pi * r ** 2, 2))
+print(sqrt(2))`,`import math
+print(math.sqrt(16), math.pi)
+print(math.ceil(4.1), math.floor(4.9))
+from math import sqrt
+r = 5
+print("Тегеректин аянты:", round(math.pi * r ** 2, 2))
+print(sqrt(2))`)},
+  {h:R("Случайные числа: random","Кокустук сандар: random"),t:R(`<p><code>random.randint(1, 6)</code> — случайное целое от 1 до 6 включительно (бросок кубика). <code>random.choice(список)</code> выбирает случайный элемент, <code>random.shuffle(список)</code> перемешивает. Запустите пример несколько раз — результат будет меняться.</p>`,
+   `<p><code>random.randint(1, 6)</code> — 1ден 6га чейинки (6 кошо) кокустук бүтүн сан (кубик ыргытуу). <code>random.choice(тизме)</code> кокустук элементти тандайт, <code>random.shuffle(тизме)</code> аралаштырат. Мисалды бир нече жолу иштетиңиз — жыйынтык өзгөрүп турат.</p>`),
+   code:R(`import random
+print("Кубик:", random.randint(1, 6))
+team = ["Айбек", "Мээрим", "Данияр", "Сезим"]
+print("Дежурный:", random.choice(team))
+random.shuffle(team)
+print("Очередь:", team)`,`import random
+print("Кубик:", random.randint(1, 6))
+team = ["Айбек", "Мээрим", "Данияр", "Сезим"]
+print("Кезекчи:", random.choice(team))
+random.shuffle(team)
+print("Кезек:", team)`)},
+  {h:R("Игра «Угадай число»","«Санды тап» оюну"),t:R(`<p>Компьютер загадывает число от 1 до 10, игрок угадывает, программа подсказывает «больше» или «меньше». В тренажёре попытки заранее записаны в поле «Ввод»; в IDLE вы будете вводить их сами.</p>`,
+   `<p>Компьютер 1ден 10го чейин сан ойлойт, оюнчу табат, программа «чоңураак» же «кичирээк» деп жардам берет. Машыктыргычта аракеттер «Киргизүү» талаасына алдын ала жазылган; IDLEде аларды өзүңүз киргизесиз.</p>`),
+   code:R(`import random
+secret = random.randint(1, 10)
+tries = 0
+while True:
+    g = int(input())
+    tries += 1
+    if g < secret:
+        print(g, "— загаданное больше")
+    elif g > secret:
+        print(g, "— загаданное меньше")
+    else:
+        print("Угадал за", tries, "попыток!")
+        break`,`import random
+secret = random.randint(1, 10)
+tries = 0
+while True:
+    g = int(input())
+    tries += 1
+    if g < secret:
+        print(g, "— ойлонгон сан чоңураак")
+    elif g > secret:
+        print(g, "— ойлонгон сан кичирээк")
+    else:
+        print(tries, "аракетте таптың!")
+        break`),inp:"5\n3\n8\n1\n10\n7\n2\n4\n6\n9"},
+  {h:R("Другие модули","Башка модулдар"),t:R(`<p>Модулей сотни: <code>datetime</code> — даты и время, <code>statistics</code> — среднее и медиана, <code>turtle</code> — графика. Можно сделать и свой модуль: сохраните функции в файл <code>geom.py</code>, а в другой программе напишите <code>import geom</code>.</p>`,
+   `<p>Модулдар жүздөп бар: <code>datetime</code> — даталар жана убакыт, <code>statistics</code> — орточо жана медиана, <code>turtle</code> — графика. Өз модулуңузду да жасасаңыз болот: функцияларды <code>geom.py</code> файлына сактап, башка программада <code>import geom</code> деп жазыңыз.</p>`),
+   code:`import statistics
+from datetime import date
+marks = [5, 4, 4, 3, 5, 5, 4]
+print(statistics.mean(marks), statistics.median(marks))
+d = date(2026, 9, 1)
+print(d, d.weekday())`}],
+ remember:R(`<ul><li><code>import модуль</code> → <code>модуль.функция()</code>; или <code>from модуль import функция</code>.</li><li><code>math</code>: <code>sqrt pi ceil floor</code>.</li><li><code>random</code>: <code>randint(a, b)</code> (b включительно), <code>choice</code>, <code>shuffle</code>.</li></ul>`,
+  `<ul><li><code>import модуль</code> → <code>модуль.функция()</code>; же <code>from модуль import функция</code>.</li><li><code>math</code>: <code>sqrt pi ceil floor</code>.</li><li><code>random</code>: <code>randint(a, b)</code> (b кошо), <code>choice</code>, <code>shuffle</code>.</li></ul>`),
+ quiz:[
+  {type:"num",q:R("Что выведет программа?\nimport math\nprint(math.sqrt(81))","Программа эмне чыгарат?\nimport math\nprint(math.sqrt(81))"),ans:9,why:R("Корень из 81 — 9 (выводится как 9.0).","81дин тамыры — 9 (9.0 болуп чыгат).")},
+  {type:"choice",q:R("Что может вывести print(random.randint(1, 3))?","print(random.randint(1, 3)) эмне чыгарышы мүмкүн?"),opts:[R("только 1 или 2","1 же 2 гана"),R("1, 2 или 3","1, 2 же 3"),R("любое дробное от 1 до 3","1ден 3кө чейинки каалаган бөлчөк")],ans:1,why:R("randint включает обе границы.","randint эки чекти тең камтыйт.")},
+  {type:"num",q:R("Что выведет программа?\nimport math\nprint(math.ceil(4.1))","Программа эмне чыгарат?\nimport math\nprint(math.ceil(4.1))"),ans:5,why:R("ceil округляет вверх.","ceil жогору карай тегеректейт.")}],
+ task:{q:R("Вводятся катеты a и b прямоугольного треугольника. С помощью math.sqrt найдите гипотенузу и выведите round(c, 2).","Тик бурчтуу үч бурчтуктун a жана b катеттери киргизилет. math.sqrt жардамы менен гипотенузаны таап, round(c, 2) чыгарыңыз."),
+  start:"import math\na = float(input())\nb = float(input())\n",must:["sqrt"],tests:[{in:"3\n4",out:"5.0"},{in:"1\n1",out:"1.41"},{in:"5\n12",out:"13.0"}],hint:"c = math.sqrt(a ** 2 + b ** 2)\nprint(round(c, 2))"}},
+
+{id:"turtle",icon:"🐢",c:"#2b8a3e",title:R("Черепашья графика","Ташбака графикасы"),
+ lead:R("Представьте черепаху с фломастером на хвосте. Вы говорите ей: «проползи 100 шагов», «повернись налево» — и на экране остаётся след. Так работает модуль turtle. В тренажёре черепаха рисует прямо на странице.",
+  "Куйругуна фломастер байланган ташбаканы элестетиңиз. Ага «100 кадам жыл», «солго бурул» дейсиз — экранда из калат. turtle модулу ушундай иштейт. Машыктыргычта ташбака түз эле бетте тартат."),
+ sec:[
+  {h:R("Первые шаги","Алгачкы кадамдар"),t:R(`<p>Черепаха начинает в центре и смотрит направо. <code>forward(n)</code> — вперёд на n шагов, <code>back(n)</code> — назад, <code>left(угол)</code> и <code>right(угол)</code> — поворот в градусах. Есть короткие имена: <code>fd</code>, <code>bk</code>, <code>lt</code>, <code>rt</code>.</p>`,
+   `<p>Ташбака борбордон баштайт жана оңго карап турат. <code>forward(n)</code> — n кадам алга, <code>back(n)</code> — артка, <code>left(бурч)</code> жана <code>right(бурч)</code> — градус менен бурулуу. Кыска аттары да бар: <code>fd</code>, <code>bk</code>, <code>lt</code>, <code>rt</code>.</p>`),
+   code:`import turtle
+t = turtle.Turtle()
+t.forward(120)
+t.left(90)
+t.forward(80)
+t.right(135)
+t.forward(60)`},
+  {h:R("Перо и цвет","Калем жана түс"),t:R(`<p><code>penup()</code> поднимает перо — черепаха двигается без следа, <code>pendown()</code> опускает. <code>goto(x, y)</code> — перейти в точку. <code>pensize(3)</code> — толщина, <code>color("red")</code> — цвет (названия цветов — по-английски).</p>`,
+   `<p><code>penup()</code> калемди көтөрөт — ташбака из калтырбай жылат, <code>pendown()</code> түшүрөт. <code>goto(x, y)</code> — чекитке өтүү. <code>pensize(3)</code> — калыңдык, <code>color("red")</code> — түс (түстөрдүн аттары — англисче).</p>`),
+   code:`import turtle
+t = turtle.Turtle()
+t.pensize(4)
+colors = ["red", "orange", "gold", "green", "blue"]
+for i in range(5):
+    t.penup()
+    t.goto(-120, 80 - i * 40)
+    t.pendown()
+    t.color(colors[i])
+    t.forward(240)`},
+  {h:R("Правильные многоугольники","Туура көп бурчтуктар"),t:R(`<p>Чтобы обойти фигуру и вернуться в начало, черепаха поворачивается в сумме на 360°. Значит, у правильного n-угольника каждый поворот равен <code>360 / n</code>. Удобно оформить это функцией.</p>`,
+   `<p>Фигураны айланып, башына кайтуу үчүн ташбака жалпысынан 360° бурулат. Демек, туура n-бурчтуктун ар бир бурулушу <code>360 / n</code> болот. Муну функция катары жазуу ыңгайлуу.</p>`),
+   code:`import turtle
+t = turtle.Turtle()
+
+def polygon(n, side):
+    for i in range(n):
+        t.forward(side)
+        t.left(360 / n)
+
+for n in range(3, 9):
+    polygon(n, 50)`},
+  {h:R("Заливка, круги, надписи","Боёо, тегеректер, жазуулар"),t:R(`<p>Всё, что нарисовано между <code>begin_fill()</code> и <code>end_fill()</code>, закрашивается. <code>color("orange", "gold")</code> — цвет линии и заливки. <code>circle(r)</code> рисует круг радиуса r, <code>dot(size)</code> — точку, <code>write("текст")</code> — надпись.</p>`,
+   `<p><code>begin_fill()</code> менен <code>end_fill()</code> ортосунда тартылгандын баары боёлот. <code>color("orange", "gold")</code> — сызыктын жана боёктун түсү. <code>circle(r)</code> r радиустуу тегерек, <code>dot(size)</code> — чекит, <code>write("текст")</code> — жазуу тартат.</p>`),
+   code:R(`import turtle
+t = turtle.Turtle()
+t.penup(); t.goto(0, -60); t.pendown()
+t.color("orange", "gold")
+t.begin_fill()
+t.circle(60)
+t.end_fill()
+t.penup(); t.goto(0, 0)
+for i in range(12):
+    t.forward(75); t.pendown(); t.forward(35)
+    t.penup(); t.backward(110); t.left(30)
+t.goto(-40, -120)
+t.write("Солнце", font=("Arial", 16, "bold"))
+t.hideturtle()`,`import turtle
+t = turtle.Turtle()
+t.penup(); t.goto(0, -60); t.pendown()
+t.color("orange", "gold")
+t.begin_fill()
+t.circle(60)
+t.end_fill()
+t.penup(); t.goto(0, 0)
+for i in range(12):
+    t.forward(75); t.pendown(); t.forward(35)
+    t.penup(); t.backward(110); t.left(30)
+t.goto(-30, -120)
+t.write("Күн", font=("Arial", 16, "bold"))
+t.hideturtle()`)},
+  {h:R("Узоры из повторов","Кайталоолордон оюулар"),t:R(`<p>Если повторять одну фигуру и каждый раз немного поворачиваться, получается узор, похожий на орнамент. Поменяйте число повторов, угол и цвета — и создайте свой.</p>`,
+   `<p>Бир фигураны кайталап, ар жолу бир аз бурулса, оюуга окшош көрк чыгат. Кайталоолордун санын, бурчту жана түстөрдү өзгөртүп — өзүңүздүкүн түзүңүз.</p>`),
+   code:`import turtle
+t = turtle.Turtle()
+turtle.bgcolor("#0b1d3a")
+colors = ["#ff6b6b", "#ffd43b", "#69db7c", "#4dabf7"]
+t.pensize(2)
+for i in range(36):
+    t.color(colors[i % 4])
+    t.circle(80)
+    t.left(10)
+t.hideturtle()`}],
+ remember:R(`<ul><li><code>import turtle</code>, <code>t = turtle.Turtle()</code>.</li><li><code>forward back left right</code>, <code>penup pendown goto</code>.</li><li><code>color pensize begin_fill end_fill circle dot write</code>.</li><li>Правильный n-угольник: n раз «вперёд + поворот на 360 / n».</li></ul>`,
+  `<ul><li><code>import turtle</code>, <code>t = turtle.Turtle()</code>.</li><li><code>forward back left right</code>, <code>penup pendown goto</code>.</li><li><code>color pensize begin_fill end_fill circle dot write</code>.</li><li>Туура n-бурчтук: n жолу «алга + 360 / n бурулуу».</li></ul>`),
+ quiz:[
+  {type:"num",q:R("На какой угол нужно поворачивать черепаху, чтобы нарисовать правильный пятиугольник?","Туура беш бурчтукту тартуу үчүн ташбаканы канча градуска буруу керек?"),ans:72,why:"360 / 5 = 72."},
+  {type:"choice",q:R("Что делает penup()?","penup() эмне кылат?"),opts:[R("Стирает рисунок","Сүрөттү өчүрөт"),R("Черепаха двигается без следа","Ташбака из калтырбай жылат"),R("Поворачивает черепаху вверх","Ташбаканы жогору бурат")],ans:1,why:R("Перо поднято — линия не рисуется.","Калем көтөрүлгөн — сызык тартылбайт.")},
+  {type:"num",q:R("Сколько отрезков нарисует программа?\nfor i in range(3):\n    for j in range(4):\n        t.forward(50)\n        t.left(90)\n    t.left(120)","Программа канча кесинди тартат?\nfor i in range(3):\n    for j in range(4):\n        t.forward(50)\n        t.left(90)\n    t.left(120)"),ans:12,why:R("3 квадрата по 4 стороны.","4 жактуу 3 квадрат.")}],
+ task:{turtle:true,q:R("Нарисуйте правильный треугольник со стороной 120 и закрасьте его любым цветом.","Жагы 120 болгон туура үч бурчтук тартып, аны каалаган түскө боёңуз."),
+  start:"import turtle\nt = turtle.Turtle()\n",checks:[{d:R("3 стороны по 120","120дан 3 жак"),f:S=>TK.sides(S,3,120)},{d:R("фигура замкнута","фигура туюк"),f:S=>TK.closed(S)},{d:R("есть заливка","боёлгон"),f:(S,o)=>TK.fills(o)>=1}],hint:R("Угол поворота 360 / 3 = 120. Не забудьте begin_fill() до цикла и end_fill() после.","Бурулуу бурчу 360 / 3 = 120. Циклге чейин begin_fill(), андан кийин end_fill() унутпаңыз.")}}
+];
+
+const PYMAP={"7-6":["intro","vars","types","input","ops"],"7-7":["if"],"7-8":["for","while"],"8-7":["if","while"],"8-8":["func"],"8-9":["str","list"],"8-10":["nested","turtle"],"9-9":["list","dict","func"],"9-11":["list","mod"]};
+const PYG={intro:7,vars:7,types:7,input:7,ops:7,if:7,for:7,while:7,nested:8,str:8,list:8,func:8,turtle:8,dict:9,mod:9};
+const tx=(ru,ky)=>S.lang==="ky"?ky:ru;
+function pyKey(){return "inf79_pyl_"+(S.user?S.user.id:"guest")}
+function pyProg(){try{return JSON.parse(localStorage.getItem(pyKey())||"{}")}catch(e){return{}}}
+function pySave(id,k,v){const d=pyProg();d[id]=d[id]||{};d[id][k]=v;try{localStorage.setItem(pyKey(),JSON.stringify(d))}catch(e){}}
+function pyDoneL(l,p){p=p||pyProg()[l.id]||{};return l.quiz.every((q,k)=>p["q"+k])&&!!p.task}
+function pyWorksOf(id){return Object.keys(PYMAP).filter(w=>PYMAP[w].includes(id))}
+function pyWorkChip(wid){const w=findWork(wid);if(!w)return "";const g=wid.split("-")[0];const lab=`${pr()}-${w.n} · ${g} ${tx("кл.","кл.")}`;
+  return S.user&&S.role==="s"&&String(S.user.grade||7)===g?`<a class="pychip" href="#w${wid}" title="${esc(L(w.title))}">${lab}</a>`:`<span class="pychip off" title="${esc(L(w.title))}">${lab}</span>`}
+function pyBanner(){return `<a class="pyban noprint" href="#py"><span class="pyico">📘</span><span><b>${tx("Учебник Python","Python окуу китеби")}</b><br><span class="small">${tx(PYL.length+" уроков: примеры можно менять и запускать прямо на странице","Сабактар: "+PYL.length+". Мисалдарды түз эле бетте өзгөртүп, иштетүүгө болот")}</span></span><span style="margin-left:auto;font-size:22px">→</span></a>`}
+function viewPy(id){if(id)return viewPyLesson(id);const P=pyProg();const back=S.user?(S.role==="t"?"#teacher":"#home"):"#";
+  let h=`<p class="noprint"><a href="${back}">${S.user?t_("back"):"← "+tx("На главную","Башкы бетке")}</a></p><div class="pyhero"><div class="pyhico">🐍</div><div><h1>${tx("Учебник Python","Python окуу китеби")}</h1><p>${tx("Короткие уроки с живыми примерами: каждый пример можно изменить и запустить прямо здесь. В конце урока — вопросы для самопроверки и задача с автопроверкой. Рисунки черепахи тоже появляются на странице.","Жандуу мисалдары бар кыска сабактар: ар бир мисалды ушул жерде эле өзгөртүп, иштетүүгө болот. Сабактын аягында — өзүн-өзү текшерүү суроолору жана автотекшерүүсү бар маселе. Ташбаканын сүрөттөрү да бетте пайда болот.")}</p></div></div>`;
+  for(const g of [7,8,9]){const ls=PYL.map((l,k)=>({l,k})).filter(x=>PYG[x.l.id]===g);if(!ls.length)continue;
+    h+=`<h2>${g} ${tx("класс","класс")}</h2><div class="grid2">`;
+    for(const {l,k} of ls){const p=P[l.id]||{};const qd=l.quiz.filter((q,j)=>p["q"+j]).length;const done=pyDoneL(l,p);
+      h+=`<a class="pycard" href="#py-${l.id}" style="--pc:${l.c}"><div class="pctop"><span class="pcico">${l.icon}</span><span class="pcn">${k+1}</span></div><div class="pcbody"><b>${esc(L(l.title))}</b>
+       <div class="small mute" style="margin-top:4px">${esc(L(l.lead).split(". ")[0].replace(/\.$/,""))}.</div>
+       <div class="row small" style="margin-top:8px;gap:6px">${pyWorksOf(l.id).map(w=>`<span class="pychip off">${pr()}-${findWork(w)?findWork(w).n:""} · ${w.split("-")[0]} ${tx("кл.","кл.")}</span>`).join("")}<span style="flex:1"></span>${done?`<span class="tag ok">✓ ${tx("пройден","өтүлдү")}</span>`:(qd||p.task)?`<span class="tag warn">${qd+(p.task?1:0)} / ${l.quiz.length+1}</span>`:""}</div></div></a>`}
+    h+=`</div>`}
+  h+=`<p class="small mute" style="margin-top:20px">${tx("Уроки, примеры и задачи составлены для практикума «Информатика 7–9». Автор-составитель: Канетова Д.Э.","Сабактар, мисалдар жана маселелер «Информатика 7–9» практикуму үчүн түзүлдү. Автор-түзүүчү: Канетова Д.Э.")}</p>`;
+  $("#app").innerHTML=h;window.scrollTo(0,0)}
+
+function pyRunBox(code,inp,key){const n=code.split("\n").length;return `<div class="runbox" data-rb="${key}"><textarea class="code" data-code spellcheck="false" autocapitalize="off" style="min-height:${Math.min(420,n*22+26)}px">${esc(code)}</textarea>
+  <div class="row" style="margin-top:6px"><button class="ghost" data-run>▶ ${t_("run")}</button><button class="ghost" data-reset title="${tx("Вернуть исходный код","Баштапкы кодду кайтаруу")}">↺</button>${inp!=null?`<span class="small mute">${t_("stdin")}:</span><textarea data-stdin class="code" style="min-height:44px;width:170px">${esc(inp)}</textarea>`:""}</div>
+  <pre class="out" data-out hidden></pre><canvas class="tcv" data-tcv hidden style="margin:8px 0 0"></canvas></div>`}
+async function pyRun(el){const out=$("[data-out]",el),cv=$("[data-tcv]",el),si=$("[data-stdin]",el);out.hidden=false;out.textContent=t_("pyLoading");
+  try{await pyWorker()}catch(e){out.textContent=t_("pyFail");return}
+  const r_=await runPy($("[data-code]",el).value,si?si.value:"",8000);if(r_.timeout){out.textContent=t_("timeout");return}
+  const ops=r_.ops||[];if(ops.length){cv.hidden=false;drawTurtle(cv,ops)}else cv.hidden=true;
+  out.textContent=r_.out===""?(ops.length?t_("tDrawn"):t_("noOutput")):r_.out}
+
+function viewPyLesson(id){const k=PYL.findIndex(l=>l.id===id);if(k<0){location.hash="py";return}const l=PYL[k];const P=pyProg()[l.id]||{};
+  let h=`<p class="noprint"><a href="#py">← ${tx("Все уроки","Бардык сабактар")}</a></p>
+  <div class="hero" style="background:${l.c}1a"><div class="big" style="background:${l.c};font-size:32px">${l.icon}</div><div><div class="small" style="color:${l.c};font-weight:700">${tx("Урок","Сабак")} ${k+1} / ${PYL.length} · ${tx("Учебник Python","Python окуу китеби")}</div><h1>${esc(L(l.title))}</h1>
+   <div class="row small" style="gap:6px;margin-top:4px">${pyWorksOf(l.id).map(pyWorkChip).join("")}</div></div></div>
+  <div class="card"><div class="row" style="align-items:flex-start;flex-wrap:nowrap">${mascot(52,"happy")}<p style="margin:0">${esc(L(l.lead))}</p></div></div>`;
+  l.sec.forEach((s,j)=>{h+=`<div class="card"><h2 style="margin-top:0"><span class="secn" style="background:${l.c}">${j+1}</span> ${esc(L(s.h))}</h2><div class="theory">${L(s.t)}</div>${pyRunBox(L(s.code),s.inp,"s"+j)}</div>`});
+  h+=`<div class="card remember"><h2 style="margin-top:0">📌 ${tx("Запомни","Эсте сакта")}</h2>${L(l.remember)}</div>`;
+  h+=`<div class="card"><h2 style="margin-top:0">✅ ${tx("Проверь себя","Өзүңдү текшер")}</h2>`;
+  l.quiz.forEach((q,j)=>{const qp=L(q.q).split("\n");const ok=P["q"+j];let body="";
+    if(q.type==="choice")body=`<div class="opts">${q.opts.map((o,m)=>`<label><input type="radio" name="pq${j}" value="${m}" ${ok&&m===q.ans?"checked":""} ${ok?"disabled":""}> <span>${esc(L(o))}</span></label>`).join("")}</div>`;
+    else body=`<input class="strin" ${q.type==="num"?'inputmode="decimal"':""} ${ok?"disabled":""} style="width:220px;font-family:ui-monospace,Consolas,monospace" autocomplete="off" autocapitalize="off" spellcheck="false" value="${ok?esc(q.type==="num"?String(q.ans):q.ans[S.lang==="ky"?q.ans.length-1:0]):""}">`;
+    h+=`<div class="item" data-pq="${j}"><div class="q"><b>${j+1}.</b> ${esc(qp[0])}${qp.length>1?`<pre class="out">${esc(qp.slice(1).join("\n"))}</pre>`:""}</div>${body}
+     <div class="row" style="margin-top:8px"><button data-qc ${ok?"disabled":""}>${t_("check")}</button></div><div data-fb>${ok?`<div class="fb ok">✓ ${esc(L(q.why))}</div>`:""}</div></div>`});
+  h+=`</div>`;
+  const T=l.task;const tok=!!P.task;
+  h+=`<div class="card"><h2 style="margin-top:0">🧑‍💻 ${tx("Задача","Маселе")}</h2><div class="item" data-ptask><div class="q">${esc(L(T.q))}</div>`;
+  if(T.turtle)h+=`<div class="grid2" style="gap:10px;align-items:start"><div><textarea class="code" spellcheck="false" autocapitalize="off" data-code style="min-height:200px">${esc(P.code??L(T.start))}</textarea><div class="row" style="margin-top:6px"><button class="ghost" data-run>▶ ${t_("run")}</button></div></div><div><canvas class="tcv" data-tcv></canvas></div></div><ul class="small" data-checks style="margin:6px 0 0;padding-left:20px">${T.checks.map(c=>`<li>${esc(L(c.d))}</li>`).join("")}</ul><pre class="out" data-out hidden></pre>`;
+  else h+=`<textarea class="code" spellcheck="false" autocapitalize="off" data-code style="min-height:170px">${esc(P.code??L(T.start))}</textarea>
+   <div class="row" style="margin-top:6px"><button class="ghost" data-run>▶ ${t_("run")}</button><span class="small mute">${t_("stdin")}:</span><textarea data-stdin class="code" style="min-height:44px;width:160px">${esc(T.tests[0].in)}</textarea></div><pre class="out" data-out hidden></pre>`;
+  h+=`<div class="row" style="margin-top:8px"><button data-tc>${t_("check")}</button></div><div data-fb>${tok?`<div class="fb ok fbm">${mascot(30,"happy")}<b>${tx("Задача решена!","Маселе чечилди!")}</b></div>`:""}</div></div></div>`;
+  h+=`<div class="row lnav noprint" style="justify-content:space-between;margin:16px 0 30px">${k>0?`<a class="btn sec" href="#py-${PYL[k-1].id}">← ${esc(L(PYL[k-1].title))}</a>`:"<span></span>"}${k<PYL.length-1?`<a class="btn" href="#py-${PYL[k+1].id}">${esc(L(PYL[k+1].title))} →</a>`:`<a class="btn" href="#py">${tx("Все уроки","Бардык сабактар")}</a>`}</div>`;
+  $("#app").innerHTML=h;window.scrollTo(0,0);
+  // примеры
+  $$("[data-rb]").forEach((el,j)=>{const ta=$("[data-code]",el);const orig=ta.value;tabKey(ta);$("[data-run]",el).onclick=()=>pyRun(el);$("[data-reset]",el).onclick=()=>{ta.value=orig;$("[data-out]",el).hidden=true;$("[data-tcv]",el).hidden=true}});
+  // вопросы
+  const finish=()=>{if(pyDoneL(l)){confetti()}};
+  $$("[data-pq]").forEach(el=>{const j=+el.dataset.pq,q=l.quiz[j];const b=$("[data-qc]",el);b.onclick=()=>{let ok=false;
+    if(q.type==="choice"){const x=$("input:checked",el);if(!x)return;ok=+x.value===q.ans}
+    else{const v=$(".strin",el).value;if(!v.trim())return;if(q.type==="num"){const n=Number(v.replace(",",".").replace(/\s/g,""));ok=Math.abs(n-q.ans)<1e-9}else ok=q.ans.some(a=>toks(L(a)).toLowerCase()===toks(v).toLowerCase())}
+    $("[data-fb]",el).innerHTML=ok?`<div class="fb ok">✓ ${esc(L(q.why))}</div>`:`<div class="fb bad">✗ ${tx("Пока неверно. Перечитайте раздел выше или запустите код.","Азырынча туура эмес. Жогорудагы бөлүмдү кайра окуңуз же кодду иштетип көрүңүз.")}</div>`;
+    if(ok){pySave(l.id,"q"+j,1);$$("input",el).forEach(x=>x.disabled=true);b.disabled=true;finish()}}});
+  // задача
+  const te=$("[data-ptask]");const ta=$("[data-code]",te);tabKey(ta);let st;ta.addEventListener("input",()=>{clearTimeout(st);st=setTimeout(()=>pySave(l.id,"code",ta.value),600)});
+  if(T.turtle){drawTurtle($("[data-tcv]",te),T0,false);$("[data-run]",te).onclick=()=>runTurtleInto(te,ta.value)}
+  else $("[data-run]",te).onclick=async()=>{const out=$("[data-out]",te);out.hidden=false;out.textContent=t_("pyLoading");try{const r_=await runPy(ta.value,$("[data-stdin]",te).value);out.textContent=r_.timeout?t_("timeout"):(r_.out===""?t_("noOutput"):r_.out)}catch(e){out.textContent=t_("pyFail")}};
+  const tb=$("[data-tc]",te);tb.onclick=async()=>{tb.disabled=true;const stt={ans:ta.value};pySave(l.id,"code",ta.value);
+    const ti=T.turtle?{checks:T.checks.map(c=>({p:1,d:c.d,f:c.f}))}:{tests:T.tests,must:T.must,not:T.not};
+    const res=await (T.turtle?checkTurtle:checkCode)(ti,te,stt);tb.disabled=false;if(!res)return;
+    if(T.turtle)$$("[data-checks] li",te).forEach((li,j)=>{li.style.color=res.marks[j]?"var(--ok)":"var(--bad)";li.textContent=(res.marks[j]?"✓ ":"✗ ")+L(T.checks[j].d)});
+    if(res.frac===1){pySave(l.id,"task",1);$("[data-fb]",te).innerHTML=`<div class="fb ok fbm">${mascot(30,"happy")}<b>${tx("Задача решена!","Маселе чечилди!")}</b></div>`;finish()}
+    else{$("[data-fb]",te).innerHTML=`<div class="fb bad fbm">${mascot(30,"sad")}<span>${tx("Есть ошибки — посмотрите результаты проверки выше.","Каталар бар — жогорудагы текшерүүнүн жыйынтыгын караңыз.")}</span></div>${T.hint?`<button class="hintbtn" data-hint>💡 ${t_("hint")}</button><div class="hint" data-hinttxt hidden>${esc(L(T.hint))}</div>`:""}`;bindHint(te)}}}
+function tabKey(ta){ta.onkeydown=e=>{if(e.key==="Tab"){e.preventDefault();ta.setRangeText("    ",ta.selectionStart,ta.selectionEnd,"end")}}}
 
 /* ============ Мини-SQL ============ */
 const BOOKS=[[1,"Тоо жомоктору","А. Асанов",2012,"tale",4],[2,"Жылдыздарга саякат","Б. Осмонова",2019,"sci",2],[3,"Ысык-Көл сырлары","Н. Токтогулов",2016,"adv",5],[4,"Python: биринчи кадамдар","И. Петров",2021,"edu",3],
@@ -1712,6 +2655,7 @@ function header(){$("#brand").textContent=t_("brand");$$("#langseg button").forE
   $("#who").textContent=S.user?(S.user.name+(S.role==="s"?" · "+S.user.cls:" · "+t_("teacher"))):"";
   const lo=$("#logout");lo.style.display=S.user?"":"none";lo.textContent=t_("logout");document.documentElement.lang=S.lang==="ky"?"ky":"ru"}
 function route(){header();const h=location.hash.slice(1);const guard=p=>p&&p.catch&&p.catch(e=>{$("#app").innerHTML=`<div class="card"><p class="err">${esc(String(e))}</p><button onclick="route()">↻</button></div>`});
+  if(h==="py"||h.startsWith("py-"))return viewPy(h.slice(3));
   if(S.user){if(S.role==="t")return guard(viewTeacher());if(h.startsWith("w"))return guard(viewWork(h.slice(1)));return guard(viewHome())}
   if(!S.user)return viewLogin();
   if(S.role==="t")return viewTeacher();
@@ -1772,7 +2716,7 @@ function viewLogin(){let tab="s",mode="in",needCode=false,needInv=false,lastName
    <label>${t_("pass")}</label><input id="f_pass" type="password" style="width:100%">
    ${REMOTE&&tab==="t"&&mode==="up"&&needInv?`<label>${t_("invite")}</label><input id="f_inv" style="width:100%" autocomplete="off">`:""}
    <div class="err" id="f_err"></div><p><button type="submit">${mode==="in"?t_("enter"):t_("join")}</button></p></form>
-   ${REMOTE?"":`<p class="small mute">${t_("demoNote")}</p>`}</div>${landingSide()}</div>${landingBottom()}`;
+   ${REMOTE?"":`<p class="small mute">${t_("demoNote")}</p>`}<p class="small"><a href="#py">📘 ${tx("Открыть учебник Python без входа","Python окуу китебин кирбей эле ачуу")}</a></p></div>${landingSide()}</div>${landingBottom()}`;
    $$("[data-go]").forEach(b=>b.onclick=()=>{tab=b.dataset.go;mode="in";draw();$("#login").scrollIntoView({behavior:"smooth"})});
    $$(".tabs button").forEach(b=>b.onclick=()=>{tab=b.dataset.t;draw()});
    $$("[data-m]").forEach(b=>b.onclick=()=>{mode=b.dataset.m;needCode=false;needInv=false;draw()});
@@ -1789,7 +2733,7 @@ async function viewHome(){const g=S.user.grade||7;const all=await Store.allRes(S
   const ws=allWorks(g);const totalStars=ws.reduce((n,w)=>n+(w.soon?0:starsOf(w,all[w.id])),0),maxStars=ws.filter(w=>!w.soon).length*3;
   const first=S.user.name.split(" ").slice(-1)[0];
   let h=`<div class="greet">${mascot(64,"happy")}<div class="bubble" style="flex:1"><b>${S.lang==="ky"?"Салам, "+esc(first)+"!":"Привет, "+esc(first)+"!"}</b> ${t_("greet")}<div style="margin-top:4px">${starsHTML(3)} <b>${totalStars}</b> / ${maxStars}</div></div></div>
-  <h1>${t_("myWorks")} · ${g} ${t_("grade")}</h1><div class="grid2">`;
+  ${pyBanner()}<h1>${t_("myWorks")} · ${g} ${t_("grade")}</h1><div class="grid2">`;
   for(const w of ws){const r=all[w.id];const ln=lineOf(w);let st=`<span class="tag">${t_("soon")}</span>`,bar="";
     if(!w.soon){const sc=r?workScore(w,r):0;const mp=maxPts(w);
       st=!r?`<span class="tag">${t_("notStarted")}</span>`:r.mark?`<span class="tag ok">${t_("graded")}: ${r.mark}</span>`:r.submitted?`<span class="tag ok">${t_("submitted")}</span>`:`<span class="tag warn">${t_("inProgress")}</span>`;
@@ -1805,7 +2749,7 @@ async function viewWork(wid){const w=findWork(wid);if(!w||w.soon){location.hash=
   const ln=lineOf(w);const LVC=["#2f9e44","#f59f00","#7048e8"];
   let h=`<p class="noprint"><a href="#home">${t_("back")}</a></p><div class="hero" style="background:${ln.bg}"><div class="big" style="background:${ln.c}">${lineIcon(w.code.split(".")[1][0],34,"#fff")}</div><div><div class="small" style="color:${ln.c};font-weight:700">${pr()}-${w.n} · ${w.code} · ${esc(L(ln.n))}</div><h1>${esc(L(w.title))}</h1><div data-stars>${starsHTML(starsOf(w,r))}</div></div></div>
   ${r.mark?`<div class="card" style="border-color:var(--ok)"><b>${t_("mark")}: ${r.mark}</b>${r.comment?`<div>${t_("comment")}: ${esc(r.comment)}</div>`:""}</div>`:""}
-  <div class="card"><h3>${t_("goal")}</h3><p>${L(w.goal)}</p><h3>${t_("theory")}</h3>${w.illus?`<div class="illus">${w.illus(S.lang)}</div>`:""}<div class="theory">${L(w.theory)}</div>
+  <div class="card"><h3>${t_("goal")}</h3><p>${L(w.goal)}</p><h3>${t_("theory")}</h3>${w.illus?`<div class="illus">${w.illus(S.lang)}</div>`:""}<div class="theory">${L(w.theory)}</div>${PYMAP[w.id]?`<div class="pymore noprint">📘 <span>${tx("Подробнее в учебнике Python:","Python окуу китебинен кененирээк:")}</span> ${PYMAP[w.id].map(x=>{const l=PYL.find(y=>y.id===x);return `<a href="#py-${x}">${l.icon} ${esc(L(l.title))}</a>`}).join("")}</div>`:""}
   <h3>${t_("example")}</h3><div class="row" style="align-items:flex-start;flex-wrap:nowrap">${mascot(52)}<div class="example" style="flex:1;border-left-color:${ln.c}">${L(w.example)}</div></div></div><h2>${t_("tasks")}</h2>`;
   h=h.replace('<div class="card"><h3>'+t_("goal"),`<div class="jump noprint">${[t_("lv1"),t_("lv2"),t_("lv3"),t_("report")].map((x,k)=>`<button data-jump="${k}">${x}</button>`).join("")}</div><div class="card"><h3>`+t_("goal"));
   w.levels.forEach((lv,li)=>{const lp=lv.reduce((s,i)=>s+(i.pts||0),0);
@@ -1829,6 +2773,7 @@ function itemHTML(w,i,r){if(i.type==="figure")return `<div>${i.html(S.lang)}</di
   if(i.type==="str")body=`<input class="strin" value="${esc(a??"")}" ${dis} style="width:220px;font-family:ui-monospace,Consolas,monospace" autocomplete="off" autocapitalize="off" spellcheck="false">`;
   if(i.type==="code")body=`<textarea class="code" spellcheck="false" autocapitalize="off" data-code ${dis}>${esc(a??i.start??"")}</textarea>
    <div class="row" style="margin-top:6px"><button class="ghost" data-run>▶ ${t_("run")}</button><span class="small mute">${t_("stdin")}:</span><textarea data-stdin class="code" style="min-height:44px;width:150px">${esc(i.tests[0].in)}</textarea></div><pre class="out" data-out hidden></pre>`;
+  if(i.type==="turtle")body=`<div class="grid2" style="gap:10px;align-items:start"><div><textarea class="code" spellcheck="false" autocapitalize="off" data-code ${dis}>${esc(a??i.start??"")}</textarea><div class="row" style="margin-top:6px"><button class="ghost" data-run>▶ ${t_("run")}</button><span class="small mute">🐢 ${t_("tHelp")}</span></div></div><div><canvas class="tcv" data-tcv></canvas></div></div><ul class="small" data-checks style="margin:6px 0 0;padding-left:20px">${i.checks.map(c=>`<li>${esc(L(c.d))}</li>`).join("")}</ul><pre class="out" data-out hidden></pre>`;
   if(i.type==="num")body=`<input class="numin" inputmode="decimal" value="${esc(a??"")}" ${dis} style="width:160px">`;
   if(i.type==="sheet")body=sheetHTML(w,i.sheet,r);
   if(i.type==="text")body=`<textarea data-txt>${esc(a||"")}</textarea>`;
@@ -1881,7 +2826,7 @@ function collect(i,el){if(i.type==="tt"){const o={};$$("input[data-k]",el).forEa
   if(i.type==="num"){const x=$(".numin",el);return x?x.value:null}
   if(i.type==="text")return $("textarea",el).value;
   if(i.type==="str"){const x=$(".strin",el);return x?x.value:null}
-  if(["code","sql","html","robot"].includes(i.type)){const x=$("[data-code]",el);return x?x.value:null}return null}
+  if(["code","sql","html","robot","turtle"].includes(i.type)){const x=$("[data-code]",el);return x?x.value:null}return null}
 
 function showRobot(i,el,res){const o=$("[data-out]",el);o.hidden=false;if(res.err){o.textContent=res.err;return}
   $("[data-field]",el).innerHTML=i.maps.map((m,k)=>robotSVG(m,res.runs[k].path)).join("");
@@ -1898,6 +2843,8 @@ function bindWork(w,r){const refreshers={};$$("[data-item]").forEach(bindHint);
     if(i.type==="code"){const ta=$("[data-code]",el);ta.onkeydown=e=>{if(e.key==="Tab"){e.preventDefault();const p0=ta.selectionStart;ta.setRangeText("    ",p0,ta.selectionEnd,"end")}};
       $("[data-run]",el).onclick=async()=>{const out=$("[data-out]",el);out.hidden=false;out.textContent=t_("pyLoading");
         try{const r_=await runPy(ta.value,$("[data-stdin]",el).value);out.textContent=r_.timeout?t_("timeout"):(r_.out===""?t_("noOutput"):r_.out)}catch(e){out.textContent=t_("pyFail")}}}
+    if(i.type==="turtle"){const ta=$("[data-code]",el);drawTurtle($("[data-tcv]",el),T0,false);ta.onkeydown=e=>{if(e.key==="Tab"){e.preventDefault();ta.setRangeText("    ",ta.selectionStart,ta.selectionEnd,"end")}};
+      $("[data-run]",el).onclick=()=>runTurtleInto(el,ta.value)}
     if(i.type==="sql"){$("[data-run]",el).onclick=()=>{const o=$("[data-out]",el);try{o.innerHTML=sqlTableHTML(sqlRun($("[data-code]",el).value))}catch(e){o.innerHTML=`<div class="fb bad">${esc(e)}</div>`}}}
     if(i.type==="html"){const ta=$("[data-code]",el),fr=$("[data-prev]",el);let tm=null;const upd=()=>{fr.srcdoc=ta.value};upd();ta.addEventListener("input",()=>{clearTimeout(tm);tm=setTimeout(upd,400)});
       ta.onkeydown=e=>{if(e.key==="Tab"){e.preventDefault();ta.setRangeText("  ",ta.selectionStart,ta.selectionEnd,"end")}}}
@@ -1905,11 +2852,11 @@ function bindWork(w,r){const refreshers={};$$("[data-item]").forEach(bindHint);
     if(i.type==="text"){$("[data-save]",el).onclick=async()=>{r.items[i.id]={ans:collect(i,el)};await Store.putRes(S.user.id,w.id,r);$("[data-fb]",el).innerHTML=`<div class="fb info">${t_("saved")}</div>`};continue}
     const btn=$("[data-check]",el);btn.onmousedown=e=>e.preventDefault();
     btn.onclick=async()=>{const st=r.items[i.id]=r.items[i.id]||{};if(i.type!=="sheet")st.ans=collect(i,el);st.att=(st.att||0)+1;
-      let res;if(i.type==="code"){btn.disabled=true;res=await checkCode(i,el,st);btn.disabled=false;if(!res){st.att--;st.pending=true;await Store.putRes(S.user.id,w.id,r);return}st.pending=false}else res=checkItem(w,i,r);const k=st.att<=2?1:.5;const sc=Math.floor(i.pts*res.frac*k*2+1e-9)/2;st.score=Math.max(st.score||0,sc);st.ok=res.frac===1;
+      let res;if(i.type==="code"||i.type==="turtle"){btn.disabled=true;res=await (i.type==="turtle"?checkTurtle:checkCode)(i,el,st);btn.disabled=false;if(!res){st.att--;st.pending=true;await Store.putRes(S.user.id,w.id,r);return}st.pending=false}else res=checkItem(w,i,r);const k=st.att<=2?1:.5;const sc=Math.floor(i.pts*res.frac*k*2+1e-9)/2;st.score=Math.max(st.score||0,sc);st.ok=res.frac===1;
       await Store.putRes(S.user.id,w.id,r);
       if(res.marks){if(i.type==="tt")$$("input[data-k]",el).forEach(x=>{x.classList.toggle("right",!!res.marks[x.dataset.k]);x.classList.toggle("wrong",!res.marks[x.dataset.k])});
         if(i.type==="sheet")$$("td[data-a]",el).forEach(td=>{const a=td.dataset.a;td.classList.remove("right","wrong");if(a in res.marks)td.classList.add(res.marks[a]?"right":"wrong")});
-        if(i.type==="html")$$("[data-checks] li",el).forEach((li,j)=>{li.style.color=res.marks[j]?"var(--ok)":"var(--bad)";li.textContent=(res.marks[j]?"✓ ":"✗ ")+L(i.checks[j].d)});
+        if(i.type==="html"||i.type==="turtle")$$("[data-checks] li",el).forEach((li,j)=>{li.style.color=res.marks[j]?"var(--ok)":"var(--bad)";li.textContent=(res.marks[j]?"✓ ":"✗ ")+L(i.checks[j].d)});
         if(i.type==="match")$$("select",el).forEach(x=>{x.classList.toggle("right",!!res.marks[x.dataset.k]);x.classList.toggle("wrong",!res.marks[x.dataset.k])})}
       {const sp=$("#rep .score");if(sp)sp.textContent=fmt(workScore(w,r))+" / "+maxPts(w)}
       const li=w.levels.findIndex(lv=>lv.includes(i));const before=$(`[data-lvdone="${li}"]`).textContent;
@@ -1944,7 +2891,7 @@ function ansText(w,i,r){const st=r.items[i.id]||{};const a=st.ans;
   if(i.type==="num")return a||"—";
   if(i.type==="sheet"){const cells=sheetCells(w,i.sheet,r);const vals=evalSheet(cells);return i.checks.filter((c,k)=>k<4||c.cell.endsWith("8")).map(c=>`${c.cell}: ${cells[c.cell].raw||"—"} = ${fmt(vals[c.cell])}`).join("; ")+(i.checks.length>4?" …":"")}
   if(i.type==="text")return a||"—";
-  if(["str","code","sql","html","robot"].includes(i.type))return a||"—";return ""}
+  if(["str","code","sql","html","robot","turtle"].includes(i.type))return a||"—";return ""}
 
 function reportDoc(w,r,stu){const p=r.report||{};const sc=workScore(w,r),mp=maxPts(w);
   let h=`<h2 style="margin-top:0">${t_("report")}: ${pr()}-${w.n}. ${esc(L(w.title))}</h2><p>${esc(stu.name)} · ${esc(stu.cls||"")} · ${new Date().toLocaleDateString("ru-RU")}</p>
