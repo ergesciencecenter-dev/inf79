@@ -134,6 +134,36 @@ table.elim td.nm{width:auto;padding:0 10px;text-align:left;background:#f1f3f5;co
 pre.out{background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:8px 12px;font:14px/1.45 ui-monospace,Consolas,monospace;white-space:pre-wrap;margin:6px 0;max-width:75ch}
 textarea.code{font:15px/1.5 ui-monospace,Consolas,monospace;background:#fbfcfe;tab-size:4;min-height:150px}
 .q pre.out{margin-top:8px}
+/* --- титульная страница --- */
+.hero2{position:relative;overflow:hidden;border-radius:20px;color:#fff;background:linear-gradient(125deg,#3b3fb6 0%,#5b5bd6 38%,#0c8599 100%);margin:6px 0 14px}
+.hero2 .mount{position:absolute;left:0;right:0;bottom:22px;width:100%;height:60%}
+.hero2in{position:relative;display:flex;gap:20px;align-items:center;justify-content:space-between;padding:34px 34px 26px;flex-wrap:wrap}
+.h2txt{flex:1;min-width:260px}
+.kick{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:3px 12px;font-size:13px;font-weight:600;letter-spacing:.3px}
+.ttl{font-size:48px;line-height:1.05;margin:10px 0 8px;font-weight:800;letter-spacing:-.5px}
+.ttl span{background:#fff;color:#3b3fb6;border-radius:12px;padding:0 12px;margin-left:4px}
+.sub{font-size:19px;margin:0 0 6px;max-width:34ch}.std{font-size:14px;opacity:.85;margin:0}
+.hbtn{background:#fff;color:#3b3fb6;border:0;font-weight:700;padding:10px 20px;border-radius:999px;min-height:44px}
+.hbtn.ghost2{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.8)}
+.h2art{display:flex;flex-direction:column;align-items:center;gap:6px}
+.h2art svg{filter:drop-shadow(0 8px 18px rgba(0,0,0,.25));background:rgba(255,255,255,.15);border-radius:50%;padding:10px}
+.bubble2{background:#fff;color:#1d2433;border-radius:14px;padding:8px 12px;font-size:14px;font-weight:600;max-width:200px;text-align:center}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 12px}
+.stats div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+.stats b{display:block;font-size:26px;color:#3b3fb6}.stats span{font-size:13px;color:var(--mute)}
+.feats{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.feat{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 14px 5px 5px;font-size:14px;font-weight:600}
+.fi{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.lgrid{display:grid;grid-template-columns:minmax(280px,420px) 1fr;gap:14px;align-items:start}
+.logincard{margin:0}
+.gcards{display:grid;gap:10px}
+.gcard{display:flex;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.gnum{background:var(--gc);color:#fff;font-size:34px;font-weight:800;width:92px;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.gnum small{font-size:12px;font-weight:600;opacity:.9;margin-top:4px}
+.gbody{padding:10px 14px}.gcount{font-weight:700;color:var(--gc)}
+.gbody ul{margin:4px 0 0;padding-left:18px;font-size:14px;color:#3b4252}
+.lfoot{margin-top:22px}.lfin{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:12px 4px;font-size:14px}
+@media (max-width:760px){.lgrid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.ttl{font-size:38px}.hero2in{padding:24px 20px 20px}.h2art svg{width:110px;height:110px}}
 @media print{header,.noprint{display:none!important}.modal{position:static;background:none;padding:0}.modal .box{max-width:none;padding:0}}
 </style>
 </head>
@@ -1698,9 +1728,43 @@ setInterval(()=>{if(!S.user||S.role!=="s"||breakShown)return;if(Date.now()-workS
   const d=document.createElement("div");d.className="breakbar noprint";d.innerHTML=`<span style="font-size:24px">👀</span><span style="flex:1">${t_("breakMsg")}</span><button class="sec">${t_("breakOk")}</button>`;
   d.querySelector("button").onclick=()=>{d.remove();workStart=Date.now();breakShown=false};document.body.appendChild(d)}},30000);
 const COARSE=window.matchMedia&&matchMedia("(pointer:coarse)").matches;
+/* ============ Титульная страница ============ */
+function ornament(col="#ffffff",op=.35){let s="";for(let i=0;i<24;i++){const x=i*40;s+=`<path d="M${x} 14c0-8 10-8 10 0s-10 8-10 0M${x+20} 14c0 8 10 8 10 0s-10-8-10 0M${x+10} 14h10" fill="none" stroke="${col}" stroke-width="2"/>`}
+  return `<svg viewBox="0 0 960 28" preserveAspectRatio="none" style="display:block;width:100%;height:22px;opacity:${op}">${s}</svg>`}
+function landingTop(){const ky=S.lang==="ky";
+  const T=ky?{sub:"7–9-класстар үчүн практикалык иштердин интерактивдүү жыйнагы",std:"Кыргыз Республикасынын «Информатика» предметтик стандарты (2025) боюнча",
+    feats:["Автотекшерүү жана кеңештер","Кыргыз жана орус тилдеринде","Мугалимдин кабинети жана ведомость","Браузердеги Python, SQL, HTML","Компьютерде жана телефондо иштейт"],st:"Мен окуучумун",tc:"Мен мугалиммин"}
+   :{sub:"Интерактивный сборник практических работ для 7–9 классов",std:"По предметному стандарту «Информатика» Кыргызской Республики (2025)",
+    feats:["Автопроверка и подсказки","На кыргызском и русском языках","Кабинет учителя и ведомость","Python, SQL, HTML прямо в браузере","Работает на компьютере и телефоне"],st:"Я ученик",tc:"Я учитель"};
+  const counts={7:WORKS7.length,8:WORKS8.length,9:WORKS9.length};const total=counts[7]+counts[8]+counts[9];
+  const icons=[lineIcon("A",22,"#fff"),lineIcon("B",22,"#fff"),lineIcon("C",22,"#fff"),lineIcon("D",22,"#fff"),`<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>`];
+  return `<section class="hero2">
+   <svg class="mount" viewBox="0 0 1200 220" preserveAspectRatio="none" aria-hidden="true"><path d="M0 220V150l120-70 90 55 140-110 120 95 80-45 150 115 110-80 130 70 120-90 140 95v35z" fill="rgba(255,255,255,.10)"/><path d="M0 220v-40l160-60 120 50 170-90 150 85 120-40 160 70 130-55 190 80z" fill="rgba(255,255,255,.16)"/><path d="M450 70l40 30-20-5-20 15-15-12z" fill="rgba(255,255,255,.5)"/><path d="M1040 85l30 25-15-4-15 10-12-9z" fill="rgba(255,255,255,.45)"/></svg>
+   <div class="hero2in">
+    <div class="h2txt">
+     <div class="kick">${ky?"Санариптик практикум":"Цифровой практикум"}</div>
+     <h1 class="ttl">${ky?"Информатика":"Информатика"} <span>7–9</span></h1>
+     <p class="sub">${T.sub}</p>
+     <p class="std">${T.std}</p>
+     <div class="row" style="gap:10px;margin-top:14px"><button class="hbtn" data-go="s">${T.st}</button><button class="hbtn ghost2" data-go="t">${T.tc}</button></div>
+    </div>
+    <div class="h2art">${mascot(150,"happy")}<div class="bubble2">${ky?"Салам! Мен — Акыл. Бирге үйрөнөбүз!":"Привет! Я — Акыл. Будем учиться вместе!"}</div></div>
+   </div>
+   ${ornament()}
+  </section>
+  <div class="stats">${[[total,ky?"практикалык иш":"практических работ"],[3,ky?"класс":"класса"],[2,ky?"тил":"языка"],["100%",ky?"стандартка ылайык":"по стандарту"]].map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join("")}</div>
+  <div class="feats">${T.feats.map((f,k)=>`<div class="feat"><span class="fi" style="background:${["#5b5bd6","#0c8599","#e8590c","#d6336c","#2f9e44"][k]}">${icons[k]}</span>${f}</div>`).join("")}</div>`}
+function landingSide(){const ky=S.lang==="ky";const G={7:[ky?"Логика жана моделдер":"Логика и модели",ky?"Python: биринчи кадамдар":"Python: первые шаги",ky?"Электрондук таблицалар":"Электронные таблицы",ky?"ЖИ жана киберкоопсуздук":"ИИ и кибербезопасность"],
+  8:[ky?"Эсептөө системалары":"Системы счисления",ky?"Логикалык схемалар":"Логические схемы",ky?"SQL маалымат базалары":"Базы данных SQL",ky?"HTML жана CSS сайттары":"Сайты на HTML и CSS"],
+  9:[ky?"Сүрөттү жана үндү коддоо":"Кодирование изображений и звука",ky?"Шифрлер жана кол тамга":"Шифры и подпись",ky?"Робот-симулятор":"Робот-симулятор",ky?"Иреттөө, издөө, рекурсия":"Сортировка, поиск, рекурсия"]};
+  const C={7:"#5b5bd6",8:"#0c8599",9:"#e8590c"};
+  return `<div class="gcards">${[7,8,9].map(g=>`<div class="gcard" style="--gc:${C[g]}"><div class="gnum">${g}<small>${ky?"класс":"класс"}</small></div><div class="gbody"><div class="gcount">${COURSE[g].length} ${ky?"иш":"работ"}</div><ul>${G[g].map(x=>`<li>${x}</li>`).join("")}</ul></div></div>`).join("")}</div>`}
+function landingBottom(){const ky=S.lang==="ky";return `<footer class="lfoot">${ornament("#5b5bd6",.25)}
+  <div class="lfin"><div><b>${ky?"Информатика 7–9: практикум":"Информатика 7–9: практикум"}</b><br>${ky?"Автор-түзүүчү: Канетова Д.Э., ф.-м.и.к., доцент":"Автор-составитель: Канетова Д.Э., к.ф.-м.н., доцент"}<br>${ky?"КР УИАнын Энергетикалык ресурстар жана геоэкология илимий борбору":"Научный центр энергоресурсов и геоэкологии НАН КР"}</div>
+  <div class="small mute">${ky?"Кыргыз Республикасынын «Информатика» предметтик стандартына (Кыргыз билим берүү академиясы, 2025) ылайык":"Соответствует предметному стандарту «Информатика» (Кыргызская академия образования, 2025)"}<br>© 2026</div></div></footer>`}
 function viewLogin(){let tab="s",mode="in",needCode=false,lastName="",lastCode="";try{const l=JSON.parse(localStorage.getItem("inf79_last")||"null");if(l){lastName=l.n;lastCode=l.c}}catch(e){}
-  const draw=()=>{$("#app").innerHTML=`<h1>${t_("brand")}</h1><p class="mute">7–9 ${t_("grade")}</p>
-  <div class="card" style="max-width:460px">
+  const draw=()=>{$("#app").innerHTML=landingTop()+`<div class="lgrid"><div class="card logincard" id="login">
+   <h2 style="margin-top:0">${t_("login")}</h2>
    <div class="tabs"><button data-t="s" class="${tab==="s"?"on":""}">${t_("student")}</button><button data-t="t" class="${tab==="t"?"on":""}">${t_("teacher")}</button></div>
    <div class="seg" style="margin-bottom:8px"><button data-m="in" class="${mode==="in"?"on":""}">${t_("login")}</button><button data-m="up" class="${mode==="up"?"on":""}">${t_("register")}</button></div>
    <form id="lf">${tab==="s"&&(mode==="up"||needCode)?`<label>${t_("classCode")}</label><input id="f_code" style="width:100%;text-transform:uppercase" autocomplete="off" placeholder="INF7-XXXX" value="${esc(lastCode)}">`:""}
@@ -1708,7 +1772,8 @@ function viewLogin(){let tab="s",mode="in",needCode=false,lastName="",lastCode="
    <label>${t_("pass")}</label><input id="f_pass" type="password" style="width:100%">
    ${REMOTE&&tab==="t"&&mode==="up"?`<label>${t_("invite")}</label><input id="f_inv" style="width:100%" autocomplete="off">`:""}
    <div class="err" id="f_err"></div><p><button type="submit">${mode==="in"?t_("enter"):t_("join")}</button></p></form>
-   ${REMOTE?"":`<p class="small mute">${t_("demoNote")}</p>`}</div>`;
+   ${REMOTE?"":`<p class="small mute">${t_("demoNote")}</p>`}</div>${landingSide()}</div>${landingBottom()}`;
+   $$("[data-go]").forEach(b=>b.onclick=()=>{tab=b.dataset.go;mode="in";draw();$("#login").scrollIntoView({behavior:"smooth"})});
    $$(".tabs button").forEach(b=>b.onclick=()=>{tab=b.dataset.t;draw()});
    $$("[data-m]").forEach(b=>b.onclick=()=>{mode=b.dataset.m;needCode=false;draw()});
    $("#lf").onsubmit=async e=>{e.preventDefault();const name=$("#f_name").value,pass=$("#f_pass").value,cf=$("#f_code"),code=cf?cf.value:"";
