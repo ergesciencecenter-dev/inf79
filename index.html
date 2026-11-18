@@ -155,6 +155,12 @@ a.btn{text-decoration:none;display:inline-block}a.btn.sec{background:#fff;color:
 .remember{background:#fff9db;border-color:#ffe066}.remember li{margin:4px 0}
 @media (max-width:640px){.pyhero{flex-direction:column;align-items:flex-start;padding:16px}.pylink{order:2}}
 @media print{.pylink{display:none}}
+/* --- администратор --- */
+body.wide main{max-width:1260px}
+.adtiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:10px 0}
+.adtile{background:#fff;border:1px solid var(--line);border-top:4px solid var(--ac);border-radius:12px;padding:10px 14px}
+.adtile .adv{font-size:30px;font-weight:800;color:var(--ac)}.adtile .adl{font-weight:600}
+.adtab td,.adtab th{white-space:nowrap}.adrow{cursor:pointer}.adrow:hover td{background:#f3f6fb}.adsub td{background:#fafbfc;font-size:13px}
 /* --- титульная страница --- */
 .hero2{position:relative;overflow:hidden;border-radius:20px;color:#fff;background:linear-gradient(125deg,#3b3fb6 0%,#5b5bd6 38%,#0c8599 100%);margin:6px 0 14px}
 .hero2 .mount{position:absolute;left:0;right:0;bottom:22px;width:100%;height:60%}
@@ -2568,6 +2574,55 @@ function viewPyLesson(id){const k=PYL.findIndex(l=>l.id===id);if(k<0){location.h
     else{$("[data-fb]",te).innerHTML=`<div class="fb bad fbm">${mascot(30,"sad")}<span>${tx("Есть ошибки — посмотрите результаты проверки выше.","Каталар бар — жогорудагы текшерүүнүн жыйынтыгын караңыз.")}</span></div>${T.hint?`<button class="hintbtn" data-hint>💡 ${t_("hint")}</button><div class="hint" data-hinttxt hidden>${esc(L(T.hint))}</div>`:""}`;bindHint(te)}}}
 function tabKey(ta){ta.onkeydown=e=>{if(e.key==="Tab"){e.preventDefault();ta.setRangeText("    ",ta.selectionStart,ta.selectionEnd,"end")}}}
 
+/* ============ Администратор: апробациянын жүрүшү ============ */
+function adFmtD(s,withTime){if(!s)return "—";const d=new Date(s);const o={day:"2-digit",month:"2-digit",year:"numeric"};if(withTime){o.hour="2-digit";o.minute="2-digit"}return d.toLocaleString("ru-RU",o)}
+function adAgo(s){if(!s)return null;return (Date.now()-new Date(s).getTime())/86400000}
+function adStatus(t){if(!t.classes)return{c:"#c92a2a",bg:"#ffe3e3",k:tx("класс не создан","класс ачылган жок")};
+  if(!t.students)return{c:"#e67700",bg:"#fff3bf",k:tx("нет учеников","окуучулар жок")};
+  const a=adAgo(t.last);if(a==null)return{c:"#e67700",bg:"#fff3bf",k:tx("ученики не начали","окуучулар баштай элек")};
+  if(a>7)return{c:"#5d6678",bg:"#f1f3f5",k:tx("нет активности 7+ дней","7+ күн активдүүлүк жок")};
+  return{c:"#2b8a3e",bg:"#d3f9d8",k:tx("работают","иштеп жатышат")}}
+async function viewAdmin(){const box=$("#app");
+  if(!REMOTE){box.innerHTML=`<div class="card"><h1>🛡 ${tx("Администратор","Администратор")}</h1><p>${tx("Эта страница работает только на сайте, подключённом к базе данных школ. В демо-версии данных нет.","Бул бет мектептердин маалымат базасына туташкан сайтта гана иштейт. Демо-версияда маалымат жок.")}</p></div>`;return}
+  let pass="";try{pass=sessionStorage.getItem("inf79_admin")||""}catch(e){}
+  const login=(err)=>{box.innerHTML=`<div class="card" style="max-width:440px;margin:30px auto"><h1 style="margin-top:0">🛡 ${tx("Администратор","Администратор")}</h1>
+    <p class="small mute">${tx("Ход апробации: учителя, классы, активность учеников.","Апробациянын жүрүшү: мугалимдер, класстар, окуучулардын активдүүлүгү.")}</p>
+    <form id="adf"><label>${tx("Пароль администратора","Администратордун сырсөзү")}</label><input id="adp" type="password" style="width:100%" autocomplete="current-password">
+    <div class="err" id="ade">${err||""}</div><p><button type="submit">${tx("Войти","Кирүү")}</button></p></form></div>`;
+    $("#adp").focus();$("#adf").onsubmit=e=>{e.preventDefault();pass=$("#adp").value;load()}};
+  const load=async()=>{if(!pass)return login();box.innerHTML=`<div class="card">${tx("Загрузка…","Жүктөлүүдө…")}</div>`;let d;
+    try{d=await rpc("admin_stats",{p_pass:pass})}catch(e){return login(esc(String(e)))}
+    if(!d||d.error){try{sessionStorage.removeItem("inf79_admin")}catch(e){}const m={ADMIN:tx("Неверный пароль.","Сырсөз туура эмес."),LOCK:tx("Слишком много попыток. Подождите 15 минут.","Аракет өтө көп болду. 15 мүнөт күтүңүз."),NOPASS:tx("Пароль администратора ещё не задан в базе (settings → admin_pass).","Администратордун сырсөзү базада али коюлган эмес (settings → admin_pass).")};
+      pass="";return login(m[d&&d.error]||tx("Ошибка","Ката"))}
+    try{sessionStorage.setItem("inf79_admin",pass)}catch(e){}draw(d)};
+  const draw=d=>{const T=d.teachers;const sum=k=>T.reduce((n,t)=>n+(+t[k]||0),0);
+    const tiles=[[tx("Учителя","Мугалимдер"),T.length,tx("из них с классами: ","класс ачкандары: ")+T.filter(t=>t.classes>0).length,"#5b5bd6"],[tx("Классы","Класстар"),sum("classes"),"","#0c8599"],[tx("Ученики","Окуучулар"),sum("students"),"","#1f6feb"],
+      [tx("Активны за 7 дней","7 күндө активдүү"),sum("active7"),tx("учеников","окуучу"),"#2b8a3e"],[tx("Сдано отчётов","Тапшырылган отчёттор"),sum("submitted"),tx("начато работ: ","башталган иштер: ")+sum("started"),"#e8590c"],[tx("Оценено учителем","Мугалим баалаган"),sum("marked"),"","#9c36b5"]];
+    let h=`<div class="row noprint" style="justify-content:space-between"><h1 style="margin:8px 0">🛡 ${tx("Ход апробации","Апробациянын жүрүшү")}</h1><div class="row"><button class="ghost" id="adr">↻ ${tx("Обновить","Жаңыртуу")}</button><button class="ghost" id="adc">⬇ CSV</button><button class="ghost" id="adx">${tx("Выйти","Чыгуу")}</button></div></div>
+     <p class="small mute">${tx("Данные на","Маалымат")} ${adFmtD(d.now,true)}${S.lang==="ky"?" боюнча":""}. ${tx("Нажмите на учителя, чтобы увидеть его классы.","Мугалимдин класстарын көрүү үчүн анын атын басыңыз.")}</p>
+     <div class="adtiles">${tiles.map(x=>`<div class="adtile" style="--ac:${x[3]}"><div class="adv">${x[1]}</div><div class="adl">${x[0]}</div>${x[2]?`<div class="small mute">${x[2]}</div>`:""}</div>`).join("")}</div>
+     <div class="card"><h2 style="margin-top:0">${tx("Учителя","Мугалимдер")}</h2><div style="overflow-x:auto"><table class="matrix adtab"><tr><th style="text-align:left">${tx("Учитель","Мугалим")}</th><th>${tx("Статус","Абалы")}</th><th>${tx("Регистрация","Катталган")}</th><th>${tx("Классы","Класстар")}</th><th>${tx("Ученики","Окуучулар")}</th><th>${tx("Активны 7 дн.","7 күндө активдүү")}</th><th>${tx("Начато работ","Башталган иштер")}</th><th>${tx("Сдано","Тапшырылган")}</th><th>${tx("Оценено","Бааланган")}</th><th>${tx("Последняя активность","Акыркы активдүүлүк")}</th></tr>`;
+    T.forEach((t,k)=>{const s=adStatus(t);h+=`<tr class="adrow" data-k="${k}"><td class="name"><b>${esc(t.name)}</b> ${t.cls.length?"▸":""}</td><td><span class="tag" style="background:${s.bg};color:${s.c}">${s.k}</span></td><td>${adFmtD(t.reg)}</td><td>${t.classes}</td><td>${t.students}</td><td>${t.active7}</td><td>${t.started}</td><td>${t.submitted}</td><td>${t.marked}</td><td>${adFmtD(t.last,true)}</td></tr>`;
+      t.cls.forEach(c=>{h+=`<tr class="adsub" data-p="${k}" hidden><td class="name">↳ ${esc(c.name)} · ${c.grade} ${tx("кл.","кл.")} <span class="small mute">${esc(c.code)}</span></td><td></td><td></td><td></td><td>${c.students}</td><td>${c.active7}</td><td>${c.started}</td><td>${c.submitted}</td><td>${c.marked}</td><td>${adFmtD(c.last,true)}</td></tr>`})});
+    if(!T.length)h+=`<tr><td colspan="10" class="mute">${tx("Пока никто не зарегистрировался.","Азырынча эч ким катталган жок.")}</td></tr>`;
+    h+=`</table></div><p class="small mute">${tx("Красный и жёлтый статус — учителю, возможно, нужна помощь: позвоните и спросите, что мешает.","Кызыл жана сары абал — мугалимге жардам керек болушу мүмкүн: чалып, эмне тоскоол болуп жатканын сураңыз.")}</p></div>`;
+    const W=d.works.slice().sort((a,b)=>a.grade-b.grade||(+a.id.split("-")[1])-(+b.id.split("-")[1]));
+    h+=`<div class="card"><h2 style="margin-top:0">${tx("Практические работы","Практикалык иштер")}</h2>`;
+    if(!W.length)h+=`<p class="mute">${tx("Ученики ещё не начали ни одной работы.","Окуучулар али бир да ишти баштай элек.")}</p>`;
+    else{h+=`<div style="overflow-x:auto"><table class="matrix adtab"><tr><th style="text-align:left">${tx("Работа","Иш")}</th><th>${tx("Начали","Баштады")}</th><th>${tx("Сдали отчёт","Отчёт тапшырды")}</th><th>${tx("Оценено","Бааланды")}</th><th>${tx("Средняя оценка","Орточо баа")}</th><th style="min-width:140px"></th></tr>`;
+      const mx=Math.max(...W.map(w=>w.started));let g0=0;
+      W.forEach(w=>{const wk=findWork(w.id);if(w.grade!==g0){g0=w.grade;h+=`<tr><th colspan="6" style="text-align:left;background:#eef2ff">${w.grade} ${tx("класс","класс")}</th></tr>`}
+        h+=`<tr><td class="name">${pr()}-${wk?wk.n:w.id} · ${wk?esc(L(wk.title)):esc(w.id)}</td><td>${w.started}</td><td>${w.submitted}</td><td>${w.marked}</td><td>${w.avg==null?"—":fmt(w.avg)}</td><td><div class="bar" style="margin:0"><i style="width:${Math.round(w.started/mx*100)}%"></i></div></td></tr>`});
+      h+=`</table></div>`}
+    h+=`</div>`;box.innerHTML=h;
+    $$(".adrow").forEach(r=>r.onclick=()=>{const k=r.dataset.k;const subs=$$(`.adsub[data-p="${k}"]`);if(!subs.length)return;const open=subs[0].hidden;subs.forEach(x=>x.hidden=!open);r.querySelector(".name").lastChild.textContent=open?" ▾":" ▸"});
+    $("#adr").onclick=load;$("#adx").onclick=()=>{try{sessionStorage.removeItem("inf79_admin")}catch(e){}pass="";login()};
+    $("#adc").onclick=()=>{const rows=[[tx("Учитель","Мугалим"),tx("Класс","Класс"),tx("Код","Код"),tx("Параллель","Параллель"),tx("Ученики","Окуучулар"),tx("Активны 7 дн.","7 күндө активдүү"),tx("Начато","Башталган"),tx("Сдано","Тапшырылган"),tx("Оценено","Бааланган"),tx("Последняя активность","Акыркы активдүүлүк")]];
+      T.forEach(t=>{if(!t.cls.length)rows.push([t.name,"","","",0,0,0,0,0,""]);t.cls.forEach(c=>rows.push([t.name,c.name,c.code,c.grade,c.students,c.active7,c.started,c.submitted,c.marked,adFmtD(c.last,true)]))});
+      const txt="﻿"+rows.map(r=>r.map(v=>{v=String(v??"");return /[;"\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}).join(";")).join("\n");
+      try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([txt],{type:"text/csv"}));a.download="aprobaciya_"+new Date().toISOString().slice(0,10)+".csv";document.body.appendChild(a);a.click();a.remove()}catch(e){}}};
+  load()}
+
 /* ============ Мини-SQL ============ */
 const BOOKS=[[1,"Тоо жомоктору","А. Асанов",2012,"tale",4],[2,"Жылдыздарга саякат","Б. Осмонова",2019,"sci",2],[3,"Ысык-Көл сырлары","Н. Токтогулов",2016,"adv",5],[4,"Python: биринчи кадамдар","И. Петров",2021,"edu",3],
  [5,"Ала-Тоо ырлары","Ж. Садыкова",2010,"poem",1],[6,"Робот Тимур","А. Асанов",2018,"sci",2],[7,"Алтын балык","С. Ким",2008,"tale",6],[8,"Математика 8","Авторлор тобу",2022,"edu",10],
@@ -2656,6 +2711,8 @@ function header(){$("#brand").textContent=t_("brand");$$("#langseg button").forE
   const lo=$("#logout");lo.style.display=S.user?"":"none";lo.textContent=t_("logout");document.documentElement.lang=S.lang==="ky"?"ky":"ru"}
 function route(){header();const h=location.hash.slice(1);const guard=p=>p&&p.catch&&p.catch(e=>{$("#app").innerHTML=`<div class="card"><p class="err">${esc(String(e))}</p><button onclick="route()">↻</button></div>`});
   if(h==="py"||h.startsWith("py-"))return viewPy(h.slice(3));
+  document.body.classList.toggle("wide",h==="admin");
+  if(h==="admin")return guard(viewAdmin());
   if(S.user){if(S.role==="t")return guard(viewTeacher());if(h.startsWith("w"))return guard(viewWork(h.slice(1)));return guard(viewHome())}
   if(!S.user)return viewLogin();
   if(S.role==="t")return viewTeacher();
